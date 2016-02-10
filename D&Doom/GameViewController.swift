@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  GameViewController.swift
 //  D&Doom
 //
 //  Created by Andrew Meckling on 2016-02-10.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
