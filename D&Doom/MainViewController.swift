@@ -8,17 +8,64 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-
-    override func viewDidLoad() {
+class MainViewController: UIViewController
+{
+    override func shouldAutorotate() -> Bool
+    {
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.AllButUpsideDown
+    }
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidAppear( animated: Bool )
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.oriMask = supportedInterfaceOrientations()
+        
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "rotated",
+            name: UIDeviceOrientationDidChangeNotification,
+            object: nil )
+    }
+    
+    override func viewDidDisappear( animated: Bool )
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.oriMask = UIInterfaceOrientationMask.All
+        
+        NSNotificationCenter.defaultCenter().removeObserver( self )
+    }
+    
+    func rotated()
+    {
+        return
+        if UIDeviceOrientationIsLandscape( UIDevice.currentDevice().orientation )
+        {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.oriMask = UIInterfaceOrientationMask.All
+            
+            let vc = self.presentingViewController!.storyboard!.instantiateViewControllerWithIdentifier( "GameViewController" ) as! GameViewController
+            self.presentViewController( vc, animated: true, completion: nil )
+        }
+    }
+
 
 
 }
