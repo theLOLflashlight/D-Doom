@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
+		530B4E9B1C75598100E21344 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E991C75598100E21344 /* Shader.vsh */; };
 		539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */; };
 		539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC8FE1C6BD4DF00894807 /* MainViewController.swift */; };
 		539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC9001C6BD4DF00894807 /* GameViewController.swift */; };
@@ -16,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		530B4E751C75520900E21344 /* Player Class Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Player Class Playground.playground"; sourceTree = "<group>"; };
+		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		530B4E991C75598100E21344 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		539EC8F91C6BD4DF00894807 /* D&Doom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "D&Doom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		539EC8FE1C6BD4DF00894807 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +61,8 @@
 		539EC8FB1C6BD4DF00894807 /* D&Doom */ = {
 			isa = PBXGroup;
 			children = (
+				530B4E981C75598100E21344 /* Shader.fsh */,
+				530B4E991C75598100E21344 /* Shader.vsh */,
 				539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */,
 				539EC8FE1C6BD4DF00894807 /* MainViewController.swift */,
 				539EC9001C6BD4DF00894807 /* GameViewController.swift */,
@@ -63,6 +70,7 @@
 				539EC9051C6BD4DF00894807 /* Assets.xcassets */,
 				539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */,
 				539EC90A1C6BD4DF00894807 /* Info.plist */,
+				530B4E751C75520900E21344 /* Player Class Playground.playground */,
 			);
 			path = "D&Doom";
 			sourceTree = "<group>";
@@ -125,9 +133,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530B4E9A1C75598100E21344 /* Shader.fsh in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
+				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

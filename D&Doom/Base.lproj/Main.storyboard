@@ -35,7 +35,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
-                                    <segue destination="8rJ-Kc-sve" kind="presentation" modalTransitionStyle="flipHorizontal" id="jsX-mW-EOc"/>
+                                    <segue destination="8rJ-Kc-sve" kind="presentation" id="jsX-mW-EOc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9n-6e-FJK">
@@ -122,45 +122,10 @@
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
+                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Vvm-aC-qjE" userLabel="Render View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="Sie-E0-vIM">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="293"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="centerY" secondItem="Vvm-aC-qjE" secondAttribute="centerY" id="DMl-r7-G4O"/>
-                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="width" secondItem="Vvm-aC-qjE" secondAttribute="width" id="X4v-cl-yc7"/>
-                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="centerX" secondItem="Vvm-aC-qjE" secondAttribute="centerX" id="g9M-sI-8la"/>
-                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="height" secondItem="Vvm-aC-qjE" secondAttribute="height" id="zuW-q6-k26"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Game View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5" userLabel="Game View">
-                                <rect key="frame" x="207" y="279" width="186" height="42"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by GameViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="198" y="329" width="204" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMd-ah-j59">
-                                <rect key="frame" x="284" y="124" width="33" height="30"/>
-                                <state key="normal" title="Main"/>
-                                <connections>
-                                    <segue destination="ZYe-hk-d8X" kind="showDetail" action="showViewController:sender:" id="C5h-Sv-5eI"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text feed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCo-kS-Loc">
                                 <rect key="frame" x="8" y="8" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -217,19 +182,18 @@
                                     <constraint firstItem="IQh-fy-8DE" firstAttribute="leading" secondItem="6pB-xP-jV7" secondAttribute="leading" constant="5" id="wEK-9k-0Lo"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMd-ah-j59">
+                                <rect key="frame" x="284" y="8" width="33" height="30"/>
+                                <state key="normal" title="Main"/>
+                                <connections>
+                                    <segue destination="ZYe-hk-d8X" kind="showDetail" action="showViewController:sender:" id="C5h-Sv-5eI"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
+                            <constraint firstItem="6pB-xP-jV7" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" id="BCe-O3-Ceh"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="6pB-xP-jV7" secondAttribute="bottom" id="Lsa-aC-RXi"/>
-                            <constraint firstItem="Vvm-aC-qjE" firstAttribute="height" secondItem="QS5-Rx-YEW" secondAttribute="height" id="XjK-Ad-qiE"/>
-                            <constraint firstItem="6pB-xP-jV7" firstAttribute="width" secondItem="Vvm-aC-qjE" secondAttribute="width" id="YRz-HL-Muz"/>
-                            <constraint firstItem="Vvm-aC-qjE" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="m0T-Xh-qqy"/>
-                            <constraint firstItem="Vvm-aC-qjE" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="nsu-xV-8TI"/>
-                            <constraint firstItem="Vvm-aC-qjE" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" id="oda-XB-Wm7"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                             <constraint firstItem="OMd-ah-j59" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="uCM-Ci-GtG"/>
                         </constraints>
                     </view>
@@ -246,7 +210,4 @@
             <point key="canvasLocation" x="-209" y="134"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Background" width="1136" height="640"/>
-    </resources>
 </document>
