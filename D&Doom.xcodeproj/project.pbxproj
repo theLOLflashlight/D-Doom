@@ -290,6 +290,7 @@
 				539EC90F1C6BD4DF00894807 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

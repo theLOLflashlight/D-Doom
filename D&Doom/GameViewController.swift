@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController
 {
+    @IBOutlet var mHud: UIView!
+    
     override func shouldAutorotate() -> Bool
     {
         return true
@@ -19,27 +21,12 @@ class GameViewController: UIViewController
     {
         return UIInterfaceOrientationMask.Landscape
     }
-    
-    func makeViewBlurry( target: UIView )
-    {
-        let blurEffect = UIBlurEffect( style: .Light )
-        let blurEffectView = UIVisualEffectView( effect: blurEffect )
-        let vibeEffectView = UIVisualEffectView( effect: UIVibrancyEffect( forBlurEffect: blurEffect ) )
-        
-        blurEffectView.frame = target.bounds
-        vibeEffectView.frame = target.bounds
-        
-        blurEffectView.addSubview( vibeEffectView )
-        target.addSubview( blurEffectView )
-    }
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view, typically from a nib.
-        
-        makeViewBlurry( view.viewWithTag( 3 )! )
     }
     
     override func didReceiveMemoryWarning()
