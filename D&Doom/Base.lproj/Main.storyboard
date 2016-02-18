@@ -35,7 +35,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
-                                    <segue destination="8rJ-Kc-sve" kind="presentation" id="jsX-mW-EOc"/>
+                                    <segue destination="8rJ-Kc-sve" kind="presentation" modalTransitionStyle="flipHorizontal" id="jsX-mW-EOc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9n-6e-FJK">
@@ -126,16 +126,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Vvm-aC-qjE">
+                            <view multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Vvm-aC-qjE" userLabel="Render View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="Sie-E0-vIM">
-                                        <rect key="frame" x="0.0" y="184" width="393" height="293"/>
+                                    <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="Sie-E0-vIM">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="293"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="centerY" secondItem="Vvm-aC-qjE" secondAttribute="centerY" id="DMl-r7-G4O"/>
                                     <constraint firstItem="Sie-E0-vIM" firstAttribute="width" secondItem="Vvm-aC-qjE" secondAttribute="width" id="X4v-cl-yc7"/>
+                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="centerX" secondItem="Vvm-aC-qjE" secondAttribute="centerX" id="g9M-sI-8la"/>
+                                    <constraint firstItem="Sie-E0-vIM" firstAttribute="height" secondItem="Vvm-aC-qjE" secondAttribute="height" id="zuW-q6-k26"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Game View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5" userLabel="Game View">
@@ -167,32 +170,51 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pB-xP-jV7" userLabel="HUD">
                                 <rect key="frame" x="0.0" y="489" width="600" height="111"/>
                                 <subviews>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zlu-Cy-dnj">
-                                        <rect key="frame" x="180" y="-8" width="240" height="128"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="9fJ-TJ-WzE">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zfH-t0-In7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="wQA-j6-nA5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    </view>
-                                                    <vibrancyEffect>
-                                                        <blurEffect style="light"/>
-                                                    </vibrancyEffect>
-                                                </visualEffectView>
-                                            </subviews>
-                                        </view>
-                                        <blurEffect style="light"/>
-                                    </visualEffectView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="AMMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQh-fy-8DE">
+                                        <rect key="frame" x="8" y="82" width="115" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="HEALTH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a84-og-2hn">
+                                        <rect key="frame" x="131" y="79" width="115" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="WEAPON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-7z-nBZ">
+                                        <rect key="frame" x="477" y="79" width="115" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N46-l5-bLF" userLabel="Ammo Label">
+                                        <rect key="frame" x="8" y="0.0" width="115" height="74"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knq-b8-nwJ" userLabel="Health Label">
+                                        <rect key="frame" x="131" y="0.0" width="115" height="74"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSv-EC-ckL" userLabel="Health Label">
+                                        <rect key="frame" x="477" y="0.0" width="115" height="74"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Zlu-Cy-dnj" firstAttribute="width" secondItem="6pB-xP-jV7" secondAttribute="width" id="4dc-Qm-F4c"/>
-                                    <constraint firstItem="Zlu-Cy-dnj" firstAttribute="centerY" secondItem="6pB-xP-jV7" secondAttribute="centerY" id="BeH-3o-hHE"/>
-                                    <constraint firstItem="Zlu-Cy-dnj" firstAttribute="height" secondItem="6pB-xP-jV7" secondAttribute="height" id="NZI-yF-ae3"/>
-                                    <constraint firstItem="Zlu-Cy-dnj" firstAttribute="centerX" secondItem="6pB-xP-jV7" secondAttribute="centerX" id="u3P-wN-XOV"/>
+                                    <constraint firstAttribute="bottom" secondItem="IQh-fy-8DE" secondAttribute="bottom" constant="5" id="SJe-2G-hMi"/>
+                                    <constraint firstItem="RSv-EC-ckL" firstAttribute="centerX" secondItem="jHW-7z-nBZ" secondAttribute="centerX" id="Z81-Ih-ZfQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="jHW-7z-nBZ" secondAttribute="trailing" constant="5" id="b99-v0-3jD"/>
+                                    <constraint firstAttribute="bottom" secondItem="jHW-7z-nBZ" secondAttribute="bottom" constant="5" id="iiy-TC-AN7"/>
+                                    <constraint firstItem="N46-l5-bLF" firstAttribute="centerX" secondItem="IQh-fy-8DE" secondAttribute="centerX" id="ivm-3O-wiD"/>
+                                    <constraint firstItem="Knq-b8-nwJ" firstAttribute="centerX" secondItem="a84-og-2hn" secondAttribute="centerX" id="m1f-Ak-Dav"/>
+                                    <constraint firstItem="IQh-fy-8DE" firstAttribute="leading" secondItem="6pB-xP-jV7" secondAttribute="leading" constant="5" id="wEK-9k-0Lo"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -213,7 +235,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="SKO-Da-Qe6"/>
                     <connections>
+                        <outlet property="mAmmoLabel" destination="N46-l5-bLF" id="QTi-ye-umu"/>
+                        <outlet property="mHealthLabel" destination="Knq-b8-nwJ" id="bzq-oC-dkw"/>
                         <outlet property="mHud" destination="6pB-xP-jV7" id="2ZG-sS-iuA"/>
+                        <outlet property="mWeaponLabel" destination="RSv-EC-ckL" id="uLq-TH-ltj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

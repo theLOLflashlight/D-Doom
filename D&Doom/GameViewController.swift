@@ -12,6 +12,12 @@ class GameViewController: UIViewController
 {
     @IBOutlet var mHud: UIView!
     
+    @IBOutlet var mAmmoLabel: UILabel!
+    
+    @IBOutlet var mHealthLabel: UILabel!
+    
+    @IBOutlet var mWeaponLabel: UILabel!
+    
     override func shouldAutorotate() -> Bool
     {
         return true
@@ -21,18 +27,44 @@ class GameViewController: UIViewController
     {
         return UIInterfaceOrientationMask.Landscape
     }
+    
+    func makeViewBlurry( target: UIView )
+    {
+        let blurEffect = UIBlurEffect( style: .Light )
+        let blurEffectView = UIVisualEffectView( effect: blurEffect )
+        let vibeEffectView = UIVisualEffectView( effect: UIVibrancyEffect( forBlurEffect: blurEffect ) )
+        
+        blurEffectView.frame = target.bounds
+        vibeEffectView.frame = target.bounds
+        
+        blurEffectView.addSubview( vibeEffectView )
+        target.insertSubview( blurEffectView, atIndex: 0 )
+    }
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view, typically from a nib.
+        mAmmoLabel.text = "107"
+        mHealthLabel.text = "77%"
+        
+        mWeaponLabel.text = "N/A"
+        
     }
     
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidLayoutSubviews()
+    {
+        if ( !(mHud.subviews.first is UIVisualEffectView) )
+        {
+            makeViewBlurry( mHud )
+        }
     }
     
     override func viewDidAppear( animated: Bool )
