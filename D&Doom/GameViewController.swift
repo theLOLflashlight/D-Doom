@@ -83,7 +83,17 @@ class GameViewController: GLKViewController
         
         mWeaponLabel.text = "N/A"
         
+        //handle tap
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTapGesture:"));
+        tapGesture.numberOfTapsRequired = 1;
+        view.addGestureRecognizer(tapGesture);
+        
         self.setupGL()
+    }
+    
+    //Tap input event handler
+    func handleTapGesture() {
+        
     }
     
     override func didReceiveMemoryWarning()
@@ -419,7 +429,6 @@ class GameViewController: GLKViewController
         
         return status != 0
     }
-
 }
 
 var gCubeVertexData: [GLfloat] = [
