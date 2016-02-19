@@ -104,13 +104,12 @@ class GameViewController: GLKViewController
     }
     
     //Jacob: Shake input handler
-    //This throws an error at the moment. Not sure how to fix right now.
-    /*
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
             //shake method here
+            //Cast spell
         }
-    }*/
+    }
     
     override func didReceiveMemoryWarning()
     {
