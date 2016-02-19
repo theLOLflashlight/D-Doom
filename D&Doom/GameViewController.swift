@@ -92,9 +92,25 @@ class GameViewController: GLKViewController
     }
     
     //Tap input event handler
-    func handleTapGesture() {
-        
+    //For shooting a projectile
+    func handleTapGesture(recognizer : UITapGestureRecognizer) {
+        let location : CGPoint = recognizer.locationInView(self.view);
+        //var newProjectile = Projectile(location.x, location.y, 0, 30);
+        //Need model, view, and projection for the projectile.
     }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true;
+    }
+    
+    //Jacob: Shake input handler
+    //This throws an error at the moment. Not sure how to fix right now.
+    /*
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+        if motion == .MotionShake {
+            //shake method here
+        }
+    }*/
     
     override func didReceiveMemoryWarning()
     {
