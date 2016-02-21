@@ -75,6 +75,7 @@ class GameViewController: GLKViewController
     var toCreateProjectile = false;
     var mouseX : CGFloat = 0.0, mouseY : CGFloat = 0.0;
     
+    var _currProjectile = Projectile(); //a null projectile
     
     // Hashtable storing all Lists of Actor types in the game, organized by type.
     var ActorLists : [Array<Actor>] = [];
@@ -255,25 +256,30 @@ class GameViewController: GLKViewController
         self.effect?.transform.projectionMatrix = projectionMatrix
         
         var baseModelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -4.0 )
-        baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
+        //baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
         
         // Compute the model view matrix for the object rendered with GLKit
-        var modelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -1.5 )
-        modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
-        modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
+        //var modelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -1.5 )
+        //modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
+        //modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         
-        self.effect?.transform.modelviewMatrix = modelViewMatrix
+        self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
         
         // Compute the model view matrix for the object rendered with ES2
         let scale: Float = 1.5
-        modelViewMatrix = GLKMatrix4MakeScale( scale, scale, scale )
-        modelViewMatrix = GLKMatrix4Translate( modelViewMatrix, 0.0, 0.0, 1.5 )
-        modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
-        modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
+        //baseModelViewMatrix = GLKMatrix4MakeScale( scale, scale, scale )
+        //baseModelViewMatrix = GLKMatrix4Translate( baseModelViewMatrix, 0.0, 0.0, 1.5 )
+        baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
+        //baseModelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         
-        normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( modelViewMatrix ), nil )
+        normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( baseModelViewMatrix ), nil )
         
-        modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
+        modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, baseModelViewMatrix )
+        
+        baseModelViewMatrix = GLKMatrix4Translate(baseModelViewMatrix, _currProjectile._position.x, _currProjectile._position.y, _currProjectile._position.z); //Added to test projectile...
+        self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
+        
+        
         
         rotation += Float( self.timeSinceLastUpdate * 0.5 )
         
@@ -282,13 +288,15 @@ class GameViewController: GLKViewController
             let StartProjectile = Projectile.ActorConstants._origin;
             let screenSize : CGRect = UIScreen.mainScreen().bounds;
             let viewport = UnsafeMutablePointer<Int32>([Int32(0), Int32(screenSize.height - 100), Int32(screenSize.width), Int32(screenSize.height)]);
-            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport);
+            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: baseModelViewMatrix, projection: projectionMatrix, viewport: viewport);
         
             //Casting ActorLists[0] as [Projectile], getting the reference of that
             if ((ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
-            ActorLists[0].append(projectile); //adds to its own constructor
+                ActorLists[0].removeAll();
+                ActorLists[0].append(projectile); //adds to its own constructor
             }
             toCreateProjectile = false;
+            _currProjectile = projectile;
         }
         //ActorLists[0].append(projectile);
         //ProjectileList.append(projectile);
