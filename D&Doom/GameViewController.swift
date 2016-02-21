@@ -117,8 +117,11 @@ class GameViewController: GLKViewController
         
         //Act set toCreateProjectile to signal that this is to be done.
         toCreateProjectile = true;
-        mouseX = location.x;
-        mouseY = location.y;
+        let screenSize : CGRect = UIScreen.mainScreen().bounds;
+        
+        //mouseX and mouseY, where this is converted from screen to cartesian coords
+        mouseX = location.x - screenSize.width / 2;
+        mouseY = -location.y + screenSize.height / 2;
         //var newProjectile = Projectile(location.x, location.y, 0, 30);
         //Need model, view, and projection for the projectile.
     }
@@ -251,11 +254,12 @@ class GameViewController: GLKViewController
     func update()
     {
         let aspect = fabsf( Float( self.view.bounds.size.width / self.view.bounds.size.height ) )
-        let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 65.0 ), aspect, 0.1, 100.0 )
+        let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 160.0 ), aspect, 0.1, 100.0 )
         
         self.effect?.transform.projectionMatrix = projectionMatrix
         
         var baseModelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -4.0 )
+        baseModelViewMatrix = GLKMatrix4Translate(baseModelViewMatrix, _currProjectile._position.x, _currProjectile._position.y, _currProjectile._position.z); //Added to test projectile...
         //baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
         
         // Compute the model view matrix for the object rendered with GLKit
@@ -272,11 +276,10 @@ class GameViewController: GLKViewController
         baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
         //baseModelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         
+        
         normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( baseModelViewMatrix ), nil )
         
         modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, baseModelViewMatrix )
-        
-        baseModelViewMatrix = GLKMatrix4Translate(baseModelViewMatrix, _currProjectile._position.x, _currProjectile._position.y, _currProjectile._position.z); //Added to test projectile...
         self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
         
         
@@ -296,6 +299,7 @@ class GameViewController: GLKViewController
                 ActorLists[0].append(projectile); //adds to its own constructor
             }
             toCreateProjectile = false;
+            projectile.printVector("a", vec: projectile._velocity);
             _currProjectile = projectile;
         }
         //ActorLists[0].append(projectile);
