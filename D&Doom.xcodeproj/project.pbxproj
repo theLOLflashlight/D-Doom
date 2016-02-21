@@ -15,6 +15,7 @@
 		539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9021C6BD4DF00894807 /* Main.storyboard */; };
 		539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9051C6BD4DF00894807 /* Assets.xcassets */; };
 		539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */; };
+		812DAD0E1C792A5400027642 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812DAD0D1C792A5400027642 /* Actor.swift */; };
 		812F4E341C76BD7500002245 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F4E331C76BD7500002245 /* Projectile.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		539EC9051C6BD4DF00894807 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		539EC9081C6BD4DF00894807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		539EC90A1C6BD4DF00894807 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		812DAD0D1C792A5400027642 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		812F4E331C76BD7500002245 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 		539EC8FB1C6BD4DF00894807 /* D&Doom */ = {
 			isa = PBXGroup;
 			children = (
+				812DAD091C79292E00027642 /* Actors */,
 				530B4E981C75598100E21344 /* Shader.fsh */,
 				530B4E991C75598100E21344 /* Shader.vsh */,
 				539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */,
@@ -73,9 +76,17 @@
 				539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */,
 				539EC90A1C6BD4DF00894807 /* Info.plist */,
 				530B4E751C75520900E21344 /* Player Class Playground.playground */,
-				812F4E331C76BD7500002245 /* Projectile.swift */,
 			);
 			path = "D&Doom";
+			sourceTree = "<group>";
+		};
+		812DAD091C79292E00027642 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				812F4E331C76BD7500002245 /* Projectile.swift */,
+				812DAD0D1C792A5400027642 /* Actor.swift */,
+			);
+			name = Actors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +166,7 @@
 				539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */,
 				539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */,
 				539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */,
+				812DAD0E1C792A5400027642 /* Actor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +279,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "D&Doom/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -278,6 +292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "D&Doom/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom";

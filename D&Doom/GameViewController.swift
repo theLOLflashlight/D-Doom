@@ -43,6 +43,8 @@ class GameViewController: GLKViewController
 
     var program: GLuint = 0
     
+    
+    //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
     var rotation: Float = 0.0
@@ -63,6 +65,16 @@ class GameViewController: GLKViewController
         }
     }
     
+    // Pre-coded actors
+    var _PlayerShot = Actor(position: Actor.ActorConstants._origin);
+    
+    //For first test projectile (that is to be created with mouse)
+    var firstTestProjectileCreated = false;
+    
+    // Hashtable storing all Lists of Actor types in the game, organized by type.
+    var ActorLists : [Array<Actor>] = [];
+    var ProjectileList : [Projectile] = [];
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -73,6 +85,7 @@ class GameViewController: GLKViewController
         {
             print("Failed to create ES context")
         }
+        ActorLists = [ProjectileList]; //Can assign an array of a subclass to an array of its superclass, apparently
         
         let view = self.view as! GLKView
         view.context = self.context!
@@ -253,6 +266,29 @@ class GameViewController: GLKViewController
         modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
         
         rotation += Float( self.timeSinceLastUpdate * 0.5 )
+        
+        //Test model, view, and projection for projectile
+        if(!firstTestProjectileCreated) {
+            let StartProjectile = Projectile.ActorConstants._origin;
+            let screenSize : CGRect = UIScreen.mainScreen().bounds;
+            let viewport = UnsafeMutablePointer<Int32>([Int32(0), Int32(screenSize.height - 100), Int32(screenSize.width), Int32(screenSize.height)]);
+            let projectile = Projectile(screenX: Int(50), screenY: Int(50), farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport);
+        
+            //Casting ActorLists[0] as [Projectile], getting the reference of that
+            if ((ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
+            ActorLists[0].append(projectile); //adds to its own constructor
+            }
+            firstTestProjectileCreated = true;
+        }
+        //ActorLists[0].append(projectile);
+        //ProjectileList.append(projectile);
+        
+        //Update all Actors in ActorLists
+        for ActorList in ActorLists {
+            for actor in ActorList as! [Actor] { //force downcast/unwrap with "as!"
+                actor.update(); //actor...
+            }
+        }
     }
     
     override func glkView( view: GLKView, drawInRect rect: CGRect )
