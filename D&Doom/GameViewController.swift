@@ -45,13 +45,47 @@ class GameViewController: GLKViewController
     
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
-    var rotation: Float = 0.0
+    
+    var modelViewMatrix: GLKMatrix4 = GLKMatrix4Identity
+    
+    var position: GLKVector3 = GLKVector3Make(0, 0, 5)
+    var direction: GLKVector3 = GLKVector3Make(0,0,0)
+    var up: GLKVector3 = GLKVector3Make(0, 1, 0)
+    
+    var horizontalMovement: GLKVector3 = GLKVector3Make(0, 0, 0)
+    var horizontalAngle: Float = 0
+    var verticalAngle: Float = 0
+    
+    var rotationSpeed: Float = 0.005
     
     var vertexArray: GLuint = 0
     var vertexBuffer: GLuint = 0
     
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
+    
+    func cameraMovement()
+    {
+       direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
+        sinf(verticalAngle),
+        cosf(verticalAngle) * cosf(horizontalAngle));
+    
+        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
+    }
+    
+    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
+        
+        let point: CGPoint = sender.translationInView(self.view)
+        
+        horizontalAngle -= Float(point.x) * rotationSpeed
+        
+        verticalAngle += Float(point.y) * rotationSpeed
+        
+        print(horizontalAngle, "h")
+        print(verticalAngle, "v")
+        
+        sender.setTranslation(CGPointMake(0, 0), inView: self.view)
+    }
     
     deinit
     {
@@ -231,28 +265,20 @@ class GameViewController: GLKViewController
         
         self.effect?.transform.projectionMatrix = projectionMatrix
         
-        var baseModelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -4.0 )
-        baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
+        self.cameraMovement()
         
-        // Compute the model view matrix for the object rendered with GLKit
-        var modelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -1.5 )
-        modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
-        modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
+        modelViewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z,
+            GLKVector3Subtract(position, direction).x,
+            GLKVector3Subtract(position, direction).y,
+            GLKVector3Subtract(position, direction).z,
+            up.x, up.y, up.z);
         
         self.effect?.transform.modelviewMatrix = modelViewMatrix
-        
-        // Compute the model view matrix for the object rendered with ES2
-        let scale: Float = 1.5
-        modelViewMatrix = GLKMatrix4MakeScale( scale, scale, scale )
-        modelViewMatrix = GLKMatrix4Translate( modelViewMatrix, 0.0, 0.0, 1.5 )
-        modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
-        modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         
         normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( modelViewMatrix ), nil )
         
         modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
         
-        rotation += Float( self.timeSinceLastUpdate * 0.5 )
     }
     
     override func glkView( view: GLKView, drawInRect rect: CGRect )
