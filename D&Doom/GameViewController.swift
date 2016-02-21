@@ -188,6 +188,11 @@ class GameViewController: GLKViewController
             _noSwipe = false;
             _translationPoints.removeAll();
         }
+        if(recognizer.state == UIGestureRecognizerState.Ended) {
+            _noSwipe = false;
+            _translationPoints.removeAll();            
+        }
+        
         let translation = recognizer.translationInView(self.view);
         let location = recognizer.locationInView(self.view);
         
