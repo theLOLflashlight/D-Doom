@@ -43,6 +43,8 @@ class GameViewController: GLKViewController
 
     var program: GLuint = 0
     
+    
+    //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
     var rotation: Float = 0.0
@@ -63,6 +65,68 @@ class GameViewController: GLKViewController
         }
     }
     
+    // Pre-coded actors
+    var _PlayerShot = Actor(position: Actor.ActorConstants._origin);
+    
+    //For creating a projectile.
+    //Tap input handling depends on variables set in update, so making this as a struct instead,
+    //in which update will handle the projectile creation when toCreate is set to true
+    //(where mouseX and mouseY are also set then)
+    var toCreateProjectile = false;
+    var mouseX : CGFloat = 0.0, mouseY : CGFloat = 0.0;
+    
+    var _currProjectile = Projectile(); //a null projectile
+    
+    // Hashtable storing all Lists of Actor types in the game, organized by type.
+    var ActorLists : [Array<Actor>] = [];
+    var ProjectileList : [Projectile] = [];
+    
+    //For swipe action.
+    var _maxRadius : CGFloat = 0;
+    //var _maxTranslationY : CGFloat = 0;
+    var _prevTranslationX : CGFloat = 0; //for drawing lines
+    var _prevTranslationY : CGFloat = 0;
+    var _translationPoints : [CGPoint] = [];
+    var _noSwipe = false;
+    
+    let screenSize : CGRect = UIScreen.mainScreen().bounds;
+    var imageSize = CGSize(width: 200, height: 200); //arbitrary initialization
+    var _imageView = UIImageView();
+    
+    //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
+    func drawCustomImage(size: CGSize) -> UIImage {
+        // Setup our context
+        let bounds = CGRect(origin: CGPoint.zero, size: size)
+        let opaque = false
+        let scale: CGFloat = 0
+        UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
+        let context = UIGraphicsGetCurrentContext()
+        
+        // Setup complete, do drawing here
+        CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
+        CGContextSetLineWidth(context, 2.0)
+        
+        CGContextStrokeRect(context, bounds)
+        
+        CGContextBeginPath(context)
+        if(!_noSwipe) {
+        //draw each line, as evident from _translationPoints
+            for(var i=1; i < _translationPoints.count; i++) {
+                CGContextMoveToPoint(context, _translationPoints[i-1].x, _translationPoints[i-1].y);
+                CGContextAddLineToPoint(context, _translationPoints[i].x, _translationPoints[i].y);
+            }
+        }
+        //draw min to max - so, diagonally
+//        CGContextMoveToPoint(context, CGRectGetMaxX(bounds), CGRectGetMinY(bounds))
+//        CGContextAddLineToPoint(context, CGRectGetMinX(bounds), CGRectGetMaxY(bounds))
+        CGContextStrokePath(context)
+        
+        // Drawing complete, retrieve the finished image and cleanup
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -73,6 +137,7 @@ class GameViewController: GLKViewController
         {
             print("Failed to create ES context")
         }
+        ActorLists = [ProjectileList]; //Can assign an array of a subclass to an array of its superclass, apparently
         
         let view = self.view as! GLKView
         view.context = self.context!
@@ -88,6 +153,16 @@ class GameViewController: GLKViewController
         tapGesture.numberOfTapsRequired = 1;
         view.addGestureRecognizer(tapGesture);
         
+        //handle pan
+        let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"));
+        view.addGestureRecognizer(panGesture);
+        
+        imageSize = CGSize(width: screenSize.width, height: screenSize.height);
+        _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
+        self.view.addSubview(_imageView)
+        let image = drawCustomImage(imageSize)
+        _imageView.image = image
+        
         self.setupGL()
     }
     
@@ -95,8 +170,46 @@ class GameViewController: GLKViewController
     //For shooting a projectile
     func handleTapGesture(recognizer : UITapGestureRecognizer) {
         let location : CGPoint = recognizer.locationInView(self.view);
+        
+        //Act set toCreateProjectile to signal that this is to be done.
+        toCreateProjectile = true;
+        let screenSize : CGRect = UIScreen.mainScreen().bounds;
+        
+        //mouseX and mouseY, where this is converted from screen to cartesian coords
+        mouseX = location.x - screenSize.width / 2;
+        mouseY = -location.y + screenSize.height / 2;
         //var newProjectile = Projectile(location.x, location.y, 0, 30);
         //Need model, view, and projection for the projectile.
+    }
+    func handlePanGesture(recognizer : UIPanGestureRecognizer) {
+        if(recognizer.state == UIGestureRecognizerState.Began) {
+            _maxRadius = 0;
+            //_maxTranslationY = 0;
+            _noSwipe = false;
+            _translationPoints.removeAll();
+        }
+        let translation = recognizer.translationInView(self.view);
+        let location = recognizer.locationInView(self.view);
+        
+        //Get furthest X,Y magnitude at the direction moved towards.
+        //Actually, just get furthest radius from the origin.
+        let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
+        let radLength = CGFloat(GLKVector2Length(radiusVec))
+        if(radLength > _maxRadius) {
+            _maxRadius = radLength;
+        }
+        
+        //cancel gesture if moving backwards from the furthest radius from the origin (as opposed to total translation) by 6px.
+        //So yes, you can zigzag a lot if you wanted to.
+        if(radLength < _maxRadius - 6) {
+            _noSwipe = true;
+        }
+        
+        //draw line
+        //ie. create the _translationPoints
+        if(!_noSwipe) {
+            _translationPoints.append(CGPoint(x: location.x, y: location.y));
+        }
     }
     
     override func canBecomeFirstResponder() -> Bool {
@@ -227,32 +340,67 @@ class GameViewController: GLKViewController
     func update()
     {
         let aspect = fabsf( Float( self.view.bounds.size.width / self.view.bounds.size.height ) )
-        let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 65.0 ), aspect, 0.1, 100.0 )
+        let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 160.0 ), aspect, 0.1, 100.0 )
         
         self.effect?.transform.projectionMatrix = projectionMatrix
         
         var baseModelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -4.0 )
-        baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
+        baseModelViewMatrix = GLKMatrix4Translate(baseModelViewMatrix, _currProjectile._position.x, _currProjectile._position.y, _currProjectile._position.z); //Added to test projectile...
+        //baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
         
         // Compute the model view matrix for the object rendered with GLKit
-        var modelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -1.5 )
-        modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
-        modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
+        //var modelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -1.5 )
+        //modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
+        //modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         
-        self.effect?.transform.modelviewMatrix = modelViewMatrix
+        self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
         
         // Compute the model view matrix for the object rendered with ES2
         let scale: Float = 1.5
-        modelViewMatrix = GLKMatrix4MakeScale( scale, scale, scale )
-        modelViewMatrix = GLKMatrix4Translate( modelViewMatrix, 0.0, 0.0, 1.5 )
-        modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
-        modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
+        //baseModelViewMatrix = GLKMatrix4MakeScale( scale, scale, scale )
+        //baseModelViewMatrix = GLKMatrix4Translate( baseModelViewMatrix, 0.0, 0.0, 1.5 )
+        baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
+        //baseModelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         
-        normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( modelViewMatrix ), nil )
         
-        modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
+        normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( baseModelViewMatrix ), nil )
+        
+        modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, baseModelViewMatrix )
+        self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
+        
+        
         
         rotation += Float( self.timeSinceLastUpdate * 0.5 )
+        
+        //Test model, view, and projection for projectile
+        if(toCreateProjectile) {
+            let StartProjectile = Projectile.ActorConstants._origin;
+            let screenSize : CGRect = UIScreen.mainScreen().bounds;
+            let viewport = UnsafeMutablePointer<Int32>([Int32(0), Int32(screenSize.height - 100), Int32(screenSize.width), Int32(screenSize.height)]);
+            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: baseModelViewMatrix, projection: projectionMatrix, viewport: viewport);
+        
+            //Casting ActorLists[0] as [Projectile], getting the reference of that
+            if ((ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
+                ActorLists[0].removeAll();
+                ActorLists[0].append(projectile); //adds to its own constructor
+            }
+            toCreateProjectile = false;
+            projectile.printVector("a", vec: projectile._velocity);
+            _currProjectile = projectile;
+        }
+        //ActorLists[0].append(projectile);
+        //ProjectileList.append(projectile);
+        
+        //update line
+        let image = drawCustomImage(imageSize)
+        _imageView.image = image
+        
+        //Update all Actors in ActorLists
+        for ActorList in ActorLists {
+            for actor in ActorList as! [Actor] { //force downcast/unwrap with "as!"
+                actor.update(); //actor...
+            }
+        }
     }
     
     override func glkView( view: GLKView, drawInRect rect: CGRect )
