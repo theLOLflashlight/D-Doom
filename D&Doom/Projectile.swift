@@ -17,7 +17,7 @@ class Projectile : Actor {
     //var _vecOrigin : GLKVector3;
     
     //x and y are mouse screen coordinates, and z is the depth that this will have, for the current projection and modelview
-    init(screenX:Int, screenY:Int, farplaneZ:Int, speed:Float, modelView:GLKMatrix4, projection:GLKMatrix4, viewport:UnsafeMutablePointer<Int32>) {
+    init(screenX:CGFloat, screenY:CGFloat, farplaneZ:Int, speed:Float, modelView:GLKMatrix4, projection:GLKMatrix4, viewport:UnsafeMutablePointer<Int32>) {
         let _vecDest = GLKMathUnproject(GLKVector3Make(Float(screenX), Float(screenY), Float(farplaneZ)), modelView, projection, viewport, nil);
         let _vecOrigin = GLKMathUnproject(Actor.ActorConstants._origin, modelView, projection, viewport, nil);
         super.init(position: ActorConstants._origin);

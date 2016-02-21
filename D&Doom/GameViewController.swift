@@ -68,8 +68,13 @@ class GameViewController: GLKViewController
     // Pre-coded actors
     var _PlayerShot = Actor(position: Actor.ActorConstants._origin);
     
-    //For first test projectile (that is to be created with mouse)
-    var firstTestProjectileCreated = false;
+    //For creating a projectile.
+    //Tap input handling depends on variables set in update, so making this as a struct instead,
+    //in which update will handle the projectile creation when toCreate is set to true
+    //(where mouseX and mouseY are also set then)
+    var toCreateProjectile = false;
+    var mouseX : CGFloat = 0.0, mouseY : CGFloat = 0.0;
+    
     
     // Hashtable storing all Lists of Actor types in the game, organized by type.
     var ActorLists : [Array<Actor>] = [];
@@ -108,6 +113,11 @@ class GameViewController: GLKViewController
     //For shooting a projectile
     func handleTapGesture(recognizer : UITapGestureRecognizer) {
         let location : CGPoint = recognizer.locationInView(self.view);
+        
+        //Act set toCreateProjectile to signal that this is to be done.
+        toCreateProjectile = true;
+        mouseX = location.x;
+        mouseY = location.y;
         //var newProjectile = Projectile(location.x, location.y, 0, 30);
         //Need model, view, and projection for the projectile.
     }
@@ -268,17 +278,17 @@ class GameViewController: GLKViewController
         rotation += Float( self.timeSinceLastUpdate * 0.5 )
         
         //Test model, view, and projection for projectile
-        if(!firstTestProjectileCreated) {
+        if(toCreateProjectile) {
             let StartProjectile = Projectile.ActorConstants._origin;
             let screenSize : CGRect = UIScreen.mainScreen().bounds;
             let viewport = UnsafeMutablePointer<Int32>([Int32(0), Int32(screenSize.height - 100), Int32(screenSize.width), Int32(screenSize.height)]);
-            let projectile = Projectile(screenX: Int(50), screenY: Int(50), farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport);
+            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport);
         
             //Casting ActorLists[0] as [Projectile], getting the reference of that
             if ((ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
             ActorLists[0].append(projectile); //adds to its own constructor
             }
-            firstTestProjectileCreated = true;
+            toCreateProjectile = false;
         }
         //ActorLists[0].append(projectile);
         //ProjectileList.append(projectile);
