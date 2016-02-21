@@ -81,6 +81,52 @@ class GameViewController: GLKViewController
     var ActorLists : [Array<Actor>] = [];
     var ProjectileList : [Projectile] = [];
     
+    //For swipe action.
+    var _maxRadius : CGFloat = 0;
+    //var _maxTranslationY : CGFloat = 0;
+    var _prevTranslationX : CGFloat = 0; //for drawing lines
+    var _prevTranslationY : CGFloat = 0;
+    var _translationPoints : [CGPoint] = [];
+    var _noSwipe = false;
+    
+    let screenSize : CGRect = UIScreen.mainScreen().bounds;
+    var imageSize = CGSize(width: 200, height: 200); //arbitrary initialization
+    var _imageView = UIImageView();
+    
+    //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
+    func drawCustomImage(size: CGSize) -> UIImage {
+        // Setup our context
+        let bounds = CGRect(origin: CGPoint.zero, size: size)
+        let opaque = false
+        let scale: CGFloat = 0
+        UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
+        let context = UIGraphicsGetCurrentContext()
+        
+        // Setup complete, do drawing here
+        CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
+        CGContextSetLineWidth(context, 2.0)
+        
+        CGContextStrokeRect(context, bounds)
+        
+        CGContextBeginPath(context)
+        if(!_noSwipe) {
+        //draw each line, as evident from _translationPoints
+            for(var i=1; i < _translationPoints.count; i++) {
+                CGContextMoveToPoint(context, _translationPoints[i-1].x, _translationPoints[i-1].y);
+                CGContextAddLineToPoint(context, _translationPoints[i].x, _translationPoints[i].y);
+            }
+        }
+        //draw min to max - so, diagonally
+//        CGContextMoveToPoint(context, CGRectGetMaxX(bounds), CGRectGetMinY(bounds))
+//        CGContextAddLineToPoint(context, CGRectGetMinX(bounds), CGRectGetMaxY(bounds))
+        CGContextStrokePath(context)
+        
+        // Drawing complete, retrieve the finished image and cleanup
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -107,6 +153,16 @@ class GameViewController: GLKViewController
         tapGesture.numberOfTapsRequired = 1;
         view.addGestureRecognizer(tapGesture);
         
+        //handle pan
+        let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"));
+        view.addGestureRecognizer(panGesture);
+        
+        imageSize = CGSize(width: screenSize.width, height: screenSize.height);
+        _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
+        self.view.addSubview(_imageView)
+        let image = drawCustomImage(imageSize)
+        _imageView.image = image
+        
         self.setupGL()
     }
     
@@ -124,6 +180,36 @@ class GameViewController: GLKViewController
         mouseY = -location.y + screenSize.height / 2;
         //var newProjectile = Projectile(location.x, location.y, 0, 30);
         //Need model, view, and projection for the projectile.
+    }
+    func handlePanGesture(recognizer : UIPanGestureRecognizer) {
+        if(recognizer.state == UIGestureRecognizerState.Began) {
+            _maxRadius = 0;
+            //_maxTranslationY = 0;
+            _noSwipe = false;
+            _translationPoints.removeAll();
+        }
+        let translation = recognizer.translationInView(self.view);
+        let location = recognizer.locationInView(self.view);
+        
+        //Get furthest X,Y magnitude at the direction moved towards.
+        //Actually, just get furthest radius from the origin.
+        let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
+        let radLength = CGFloat(GLKVector2Length(radiusVec))
+        if(radLength > _maxRadius) {
+            _maxRadius = radLength;
+        }
+        
+        //cancel gesture if moving backwards from the furthest radius from the origin (as opposed to total translation) by 6px.
+        //So yes, you can zigzag a lot if you wanted to.
+        if(radLength < _maxRadius - 6) {
+            _noSwipe = true;
+        }
+        
+        //draw line
+        //ie. create the _translationPoints
+        if(!_noSwipe) {
+            _translationPoints.append(CGPoint(x: location.x, y: location.y));
+        }
     }
     
     override func canBecomeFirstResponder() -> Bool {
@@ -304,6 +390,10 @@ class GameViewController: GLKViewController
         }
         //ActorLists[0].append(projectile);
         //ProjectileList.append(projectile);
+        
+        //update line
+        let image = drawCustomImage(imageSize)
+        _imageView.image = image
         
         //Update all Actors in ActorLists
         for ActorList in ActorLists {
