@@ -190,7 +190,7 @@ class GameViewController: GLKViewController
         }
         if(recognizer.state == UIGestureRecognizerState.Ended) {
             _noSwipe = false;
-            _translationPoints.removeAll();            
+            _translationPoints.removeAll();
         }
         
         let translation = recognizer.translationInView(self.view);
@@ -399,6 +399,7 @@ class GameViewController: GLKViewController
         //update line
         let image = drawCustomImage(imageSize)
         _imageView.image = image
+        print(_translationPoints.count);
         
         //Update all Actors in ActorLists
         for ActorList in ActorLists {
