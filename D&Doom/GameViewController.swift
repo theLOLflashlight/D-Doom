@@ -47,13 +47,52 @@ class GameViewController: GLKViewController
     //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
-    var rotation: Float = 0.0
+    
+    var modelViewMatrix: GLKMatrix4 = GLKMatrix4Identity
+    
+    var position: GLKVector3 = GLKVector3Make(0, 0, 5)
+    var direction: GLKVector3 = GLKVector3Make(0,0,0)
+    var up: GLKVector3 = GLKVector3Make(0, 1, 0)
+    
+    var horizontalMovement: GLKVector3 = GLKVector3Make(0, 0, 0)
+    var _baseHorizontalAngle : Float = 0
+    var _baseVerticalAngle : Float = 0
+    var currhorizontalAngle: Float = 0
+    var currverticalAngle: Float = 0
+    
+    var rotationSpeed: Float = 0.005
     
     var vertexArray: GLuint = 0
     var vertexBuffer: GLuint = 0
     
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
+    
+    func cameraMovement()
+    {
+        let horizontalAngle = _baseHorizontalAngle + currhorizontalAngle;
+        let verticalAngle = _baseVerticalAngle + currverticalAngle;
+       direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
+        sinf(verticalAngle),
+        cosf(verticalAngle) * cosf(horizontalAngle));
+    
+        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
+        print("horizontalAngle: \(horizontalAngle); verticalAngle: \(verticalAngle)");
+    }
+    
+//    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
+//        
+//        let point: CGPoint = sender.translationInView(self.view)
+//        
+//        horizontalAngle -= Float(point.x) * rotationSpeed
+//        
+//        verticalAngle += Float(point.y) * rotationSpeed
+//        
+//        print(horizontalAngle, "h")
+//        print(verticalAngle, "v")
+//        
+//        sender.setTranslation(CGPointMake(0, 0), inView: self.view)
+//    }
     
     deinit
     {
@@ -109,7 +148,7 @@ class GameViewController: GLKViewController
         CGContextStrokeRect(context, bounds)
         
         CGContextBeginPath(context)
-        if(!_noSwipe) {
+        if(!_noSwipe) { //condition to erase line if swipe ended
         //draw each line, as evident from _translationPoints
             for(var i=1; i < _translationPoints.count; i++) {
                 CGContextMoveToPoint(context, _translationPoints[i-1].x, _translationPoints[i-1].y);
@@ -182,6 +221,7 @@ class GameViewController: GLKViewController
         //Need model, view, and projection for the projectile.
     }
     func handlePanGesture(recognizer : UIPanGestureRecognizer) {
+        
         if(recognizer.state == UIGestureRecognizerState.Began) {
             _maxRadius = 0;
             //_maxTranslationY = 0;
@@ -190,10 +230,10 @@ class GameViewController: GLKViewController
         }
         if(recognizer.state == UIGestureRecognizerState.Ended) {
             _noSwipe = false;
-            _translationPoints.removeAll();            
+            _translationPoints.removeAll();
         }
         
-        let translation = recognizer.translationInView(self.view);
+        let translation = recognizer.translationInView(self.view); //reusing, if the method could only be called once per recognize ... oh, was due to it being point.
         let location = recognizer.locationInView(self.view);
         
         //Get furthest X,Y magnitude at the direction moved towards.
@@ -215,6 +255,32 @@ class GameViewController: GLKViewController
         if(!_noSwipe) {
             _translationPoints.append(CGPoint(x: location.x, y: location.y));
         }
+        //print("radLength: \(radLength); _maxRadius: \(_maxRadius)");
+        
+        
+        
+        
+        //let point: CGPoint = recognizer.translationInView(self.view)
+        
+        
+        if(recognizer.state == UIGestureRecognizerState.Began) {
+            //_prevHorizontalAngle
+            _baseHorizontalAngle += currhorizontalAngle; //had missed the + increment over the previous ...
+            _baseVerticalAngle += currverticalAngle;
+            //currhorizontalAngle = 0;
+            //currverticalAngle = 0;
+            //_maxRadius = 0;
+            //_maxTranslationY = 0;
+            //_noSwipe = false;
+            //_translationPoints.removeAll();
+        }
+        currhorizontalAngle = Float(translation.x) * rotationSpeed;
+        currverticalAngle = Float(translation.y) * rotationSpeed;
+        
+        //print(horizontalAngle, "h")
+        //print(verticalAngle, "v")
+        
+        //recognizer.setTranslation(CGPointMake(0, 0), inView: self.view) //keeps setting it to 0; should just be the value?
     }
     
     override func canBecomeFirstResponder() -> Bool {
@@ -345,44 +411,28 @@ class GameViewController: GLKViewController
     func update()
     {
         let aspect = fabsf( Float( self.view.bounds.size.width / self.view.bounds.size.height ) )
-        let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 160.0 ), aspect, 0.1, 100.0 )
+        let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 65.0 ), aspect, 0.1, 100.0 )
         
         self.effect?.transform.projectionMatrix = projectionMatrix
         
-        var baseModelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -4.0 )
-        baseModelViewMatrix = GLKMatrix4Translate(baseModelViewMatrix, _currProjectile._position.x, _currProjectile._position.y, _currProjectile._position.z); //Added to test projectile...
-        //baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
+        self.cameraMovement();
         
-        // Compute the model view matrix for the object rendered with GLKit
-        //var modelViewMatrix = GLKMatrix4MakeTranslation( 0.0, 0.0, -1.5 )
-        //modelViewMatrix = GLKMatrix4Rotate( modelViewMatrix, rotation, 1.0, 1.0, 1.0 )
+        modelViewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z,
+            GLKVector3Subtract(position, direction).x,
+            GLKVector3Subtract(position, direction).y,
+            GLKVector3Subtract(position, direction).z,
+            up.x, up.y, up.z);
+        modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
         //modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
-        
-        self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
-        
-        // Compute the model view matrix for the object rendered with ES2
-        let scale: Float = 1.5
-        //baseModelViewMatrix = GLKMatrix4MakeScale( scale, scale, scale )
-        //baseModelViewMatrix = GLKMatrix4Translate( baseModelViewMatrix, 0.0, 0.0, 1.5 )
-        baseModelViewMatrix = GLKMatrix4Rotate( baseModelViewMatrix, rotation, 0.0, 1.0, 0.0 )
-        //baseModelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
-        
-        
-        normalMatrix = GLKMatrix3InvertAndTranspose( GLKMatrix4GetMatrix3( baseModelViewMatrix ), nil )
-        
-        modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, baseModelViewMatrix )
-        self.effect?.transform.modelviewMatrix = baseModelViewMatrix;
-        
-        
-        
-        rotation += Float( self.timeSinceLastUpdate * 0.5 )
+        //modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
+        self.effect?.transform.modelviewMatrix = modelViewMatrix;
         
         //Test model, view, and projection for projectile
         if(toCreateProjectile) {
             let StartProjectile = Projectile.ActorConstants._origin;
             let screenSize : CGRect = UIScreen.mainScreen().bounds;
             let viewport = UnsafeMutablePointer<Int32>([Int32(0), Int32(screenSize.height - 100), Int32(screenSize.width), Int32(screenSize.height)]);
-            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: baseModelViewMatrix, projection: projectionMatrix, viewport: viewport);
+            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport);
         
             //Casting ActorLists[0] as [Projectile], getting the reference of that
             if ((ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
@@ -399,6 +449,13 @@ class GameViewController: GLKViewController
         //update line
         let image = drawCustomImage(imageSize)
         _imageView.image = image
+        
+        //Update all Actors in ActorLists
+        for ActorList in ActorLists {
+            for actor in ActorList as! [Actor] { //force downcast/unwrap with "as!"
+                actor.update(); //actor...
+            }
+        }
         
         //Update all Actors in ActorLists
         for ActorList in ActorLists {
