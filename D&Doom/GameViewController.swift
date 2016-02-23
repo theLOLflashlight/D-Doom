@@ -47,13 +47,47 @@ class GameViewController: GLKViewController
     //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
-    var rotation: Float = 0.0
+    
+    var modelViewMatrix: GLKMatrix4 = GLKMatrix4Identity
+    
+    var position: GLKVector3 = GLKVector3Make(0, 0, 5)
+    var direction: GLKVector3 = GLKVector3Make(0,0,0)
+    var up: GLKVector3 = GLKVector3Make(0, 1, 0)
+    
+    var horizontalMovement: GLKVector3 = GLKVector3Make(0, 0, 0)
+    var horizontalAngle: Float = 0
+    var verticalAngle: Float = 0
+    
+    var rotationSpeed: Float = 0.005
     
     var vertexArray: GLuint = 0
     var vertexBuffer: GLuint = 0
     
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
+    
+    func cameraMovement()
+    {
+       direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
+        sinf(verticalAngle),
+        cosf(verticalAngle) * cosf(horizontalAngle));
+    
+        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
+    }
+    
+    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
+        
+        let point: CGPoint = sender.translationInView(self.view)
+        
+        horizontalAngle -= Float(point.x) * rotationSpeed
+        
+        verticalAngle += Float(point.y) * rotationSpeed
+        
+        print(horizontalAngle, "h")
+        print(verticalAngle, "v")
+        
+        sender.setTranslation(CGPointMake(0, 0), inView: self.view)
+    }
     
     deinit
     {
