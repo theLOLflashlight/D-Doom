@@ -198,12 +198,6 @@ class GameViewController: GLKViewController
         let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"));
         view.addGestureRecognizer(panGesture);
         
-        imageSize = CGSize(width: screenSize.width, height: screenSize.height);
-        _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
-        self.view.addSubview(_imageView)
-        let image = drawCustomImage(imageSize)
-        _imageView.image = image
-        
         //sound setup
         sound = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
         mySound = 0;
@@ -219,11 +213,16 @@ class GameViewController: GLKViewController
             print("error");
         }
         //play looping sound
-//        AudioServicesCreateSystemSoundID(sound, &mySound)
+        //AudioServicesCreateSystemSoundID(sound, &mySound)
         // Play
-  //          AudioServicesPlaySystemSound(mySound);
+            //AudioServicesPlaySystemSound(mySound);
+        
+        //AudioServicesAddSystemSoundCompletion(mySound, NULL, NULL, replaySound(), NULL);
         
         self.setupGL()
+    }
+    func replaySound() {
+        AudioServicesPlaySystemSound(mySound);
     }
     
     func playSound(filePath : String) {
@@ -375,6 +374,12 @@ class GameViewController: GLKViewController
             blurEffectView.addSubview( vibeEffectView )
             mHud.insertSubview( blurEffectView, atIndex: 0 )
         }
+        
+        imageSize = CGSize(width: screenSize.width, height: screenSize.height);
+        _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
+        self.view.addSubview(_imageView)
+        let image = drawCustomImage(imageSize)
+        _imageView.image = image
     }
     
     override func viewDidAppear( animated: Bool )
@@ -476,7 +481,6 @@ class GameViewController: GLKViewController
             up.x, up.y, up.z);
         
         //self.effect?. = UIColor.brownColor().colorWithAlphaComponent(CGFloat(1 - animationProgress)); //set background color
-        print(animationProgress);
         
         modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
         //modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
