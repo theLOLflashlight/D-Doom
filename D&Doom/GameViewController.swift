@@ -52,7 +52,7 @@ class GameViewController: GLKViewController
     
     var modelViewMatrix: GLKMatrix4 = GLKMatrix4Identity
     
-    var position: GLKVector3 = GLKVector3Make(0, 0, 5)
+    var position: GLKVector3 = GLKVector3Make(0, 0.5, 5)
     var direction: GLKVector3 = GLKVector3Make(0,0,0)
     var up: GLKVector3 = GLKVector3Make(0, 1, 0)
     
@@ -335,7 +335,7 @@ class GameViewController: GLKViewController
             //currhorizontalAngle = 0;
             //currverticalAngle = 0;
         }
-        currhorizontalAngle = Float(translation.x) * rotationSpeed;
+        currhorizontalAngle = -Float(translation.x) * rotationSpeed;
         currverticalAngle = Float(translation.y) * rotationSpeed;
         
         //print(horizontalAngle, "h")
@@ -449,12 +449,12 @@ class GameViewController: GLKViewController
         
         glGenBuffers( 1, &vertexBuffer )
         glBindBuffer( GLenum( GL_ARRAY_BUFFER ), vertexBuffer )
-        glBufferData( GLenum( GL_ARRAY_BUFFER ), GLsizeiptr( sizeof( GLfloat ) * gCubeVertexData.count ), &gCubeVertexData, GLenum( GL_STATIC_DRAW ) )
+        //glBufferData( GLenum( GL_ARRAY_BUFFER ), GLsizeiptr( sizeof( GLfloat ) * gCubeVertexData.count ), &gCubeVertexData, GLenum( GL_STATIC_DRAW ) )
         
         glEnableVertexAttribArray( GLuint( GLKVertexAttrib.Position.rawValue ) )
-        glVertexAttribPointer( GLuint( GLKVertexAttrib.Position.rawValue ), 3, GLenum( GL_FLOAT ), GLboolean( GL_FALSE ), 24, BUFFER_OFFSET( 0 ) )
+        glVertexAttribPointer( GLuint( GLKVertexAttrib.Position.rawValue ), 3, GLenum( GL_FLOAT ), GLboolean( GL_FALSE ), 0, levelPositions)
         glEnableVertexAttribArray( GLuint( GLKVertexAttrib.Normal.rawValue ) )
-        glVertexAttribPointer( GLuint( GLKVertexAttrib.Normal.rawValue ), 3, GLenum( GL_FLOAT ), GLboolean( GL_FALSE ), 24, BUFFER_OFFSET( 12 ) )
+        glVertexAttribPointer( GLuint( GLKVertexAttrib.Normal.rawValue ), 3, GLenum( GL_FLOAT ), GLboolean( GL_FALSE ), 24, levelNormals )
         
         glBindVertexArrayOES( 0 )
     }
@@ -555,7 +555,7 @@ class GameViewController: GLKViewController
         // Render the object with GLKit
         self.effect?.prepareToDraw()
         
-        glDrawArrays( GLenum( GL_TRIANGLES ) , 0, 36 )
+        //glDrawArrays( GLenum( GL_TRIANGLES ) , 0, 36 )
         
         // Render the object again with ES2
         glUseProgram( program )
@@ -568,7 +568,7 @@ class GameViewController: GLKViewController
             glUniformMatrix3fv( uniforms[ UNIFORM_NORMAL_MATRIX ], 1, 0, UnsafePointer( $0 ) )
         } )
         
-        glDrawArrays( GLenum( GL_TRIANGLES ), 0, 36 )
+        glDrawArrays( GLenum( GL_TRIANGLES ), 0, levelVertices )
     }
     
     // MARK: -  OpenGL ES 2 shader compilation
