@@ -69,7 +69,6 @@ class GameViewController: GLKViewController
     
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
-    var ThemePlayer : AVAudioPlayer!;
     
 //    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
 //        
@@ -127,8 +126,10 @@ class GameViewController: GLKViewController
     // Grab the path, make sure to add it to your project!
     let filePath = "footsteps_gravel";
     var sound : NSURL = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
-    var audioPlayer = AVAudioPlayer()
+    //var audioPlayer = AVAudioPlayer()
     var mySound: SystemSoundID = 0;
+    var themePlayer : AVAudioPlayer!;
+    var soundPlayer : AVAudioPlayer!;
     
     //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
     func drawCustomImage(size: CGSize) -> UIImage {
@@ -167,6 +168,24 @@ class GameViewController: GLKViewController
     //animation for background color turning brown (due to earthquake)
     var animationProgress : Float = 0.0; //from 0 to 1
     
+    func ThemeSound() {
+        
+        if let path = NSBundle.mainBundle().pathForResource("footsteps_gravel", ofType: "wav") {
+            let soundURL = NSURL(fileURLWithPath:path)
+            
+            var error:NSError?
+            do {
+                themePlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                themePlayer.prepareToPlay()
+                themePlayer.play()
+            }
+            catch {
+            }
+        }
+
+        
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -198,27 +217,9 @@ class GameViewController: GLKViewController
         let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"));
         view.addGestureRecognizer(panGesture);
         
-        //sound setup
-        sound = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
-        mySound = 0;
-        var ThemePlayer : AVAudioPlayer;
-        var error:NSError?
-        do {
-            ThemePlayer = try AVAudioPlayer(contentsOfURL: sound);
-            ThemePlayer.prepareToPlay();
-            ThemePlayer.numberOfLoops = -1;
-            ThemePlayer.play();
-        }
-        catch {
-            print("error");
-        }
         //play looping sound
-        //AudioServicesCreateSystemSoundID(sound, &mySound)
-        // Play
-            //AudioServicesPlaySystemSound(mySound);
-        
-        //AudioServicesAddSystemSoundCompletion(mySound, NULL, NULL, replaySound(), NULL);
-        
+        //From http://stackoverflow.com/questions/30873056/ios-swift-2-0-avaudioplayer-is-not-playing-any-sound
+        ThemeSound()
         self.setupGL()
     }
     func replaySound() {
@@ -268,6 +269,21 @@ class GameViewController: GLKViewController
         mouseY = -location.y + screenSize.height / 2;
         //var newProjectile = Projectile(location.x, location.y, 0, 30);
         //Need model, view, and projection for the projectile.
+        
+        
+        
+        if let path = NSBundle.mainBundle().pathForResource("'flyby'", ofType: "wav") {
+            let soundURL = NSURL(fileURLWithPath:path)
+            
+            var error:NSError?
+            do {
+                soundPlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                soundPlayer.prepareToPlay()
+                soundPlayer.play()
+            }
+            catch {
+            }
+        }
     }
     func handlePanGesture(recognizer : UIPanGestureRecognizer) {
         
