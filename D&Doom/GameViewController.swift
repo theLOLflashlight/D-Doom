@@ -443,6 +443,7 @@ class GameViewController: GLKViewController
             mHud.insertSubview( blurEffectView, atIndex: 0 )
         }
         
+        //Update image for lines
         imageSize = CGSize(width: screenSize.width, height: screenSize.height);
         _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
         self.view.addSubview(_imageView)

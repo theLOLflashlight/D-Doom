@@ -12,9 +12,6 @@ import GLKit
 import OpenGLES
 
 class Projectile : Actor {
-    //var _projectileVar = GLKVector3Make(0, 0, 0);
-    //var _vecDest : GLKVector3;
-    //var _vecOrigin : GLKVector3;
     
     //x and y are mouse screen coordinates, and z is the depth that this will have, for the current projection and modelview
     init() {
@@ -29,23 +26,15 @@ class Projectile : Actor {
         //var success : UnsafeMutablePointer<Bool> -> GLKVector3;
         //var success = nil;
         //z would be the far FOV
-        //let lineVector = GLKVector3Subtract(_vecDest, _vecOrigin);
-        //printVector(lineVectorDest);
-        //printVector(lineVectorOrigin);
-        //printVector(lineVector);
         _position = ActorConstants._origin;
         
         //Only normalize if it's not 0 - otherwise it would return nil (and it multiplying speed by 0 won't change the value anyway)
-        print("args: (\(screenX), \(screenY), \(farplaneZ))");        printVector("vecDest: ", vec: lineVectorWorld);
-        printVector("lineVectorWorld: ", vec: lineVectorWorld);
+        //print("args: (\(screenX), \(screenY), \(farplaneZ))");        printVector("vecDest: ", vec: lineVectorWorld);
+        //printVector("lineVectorWorld: ", vec: lineVectorWorld);
         if(GLKVector3Length(lineVectorWorld) != 0) {
             _velocity = GLKVector3MultiplyScalar(GLKVector3Normalize(lineVectorWorld), speed);
         }
         printVector("velocity: ", vec: _velocity);
-        
-        //printVector("lineVectorDest: ", vec: lineVectorDest);
-        //printVector("lineVectorOrigin: ", vec: lineVectorOrigin);
-        //printVector("Velocity: ", vec: _velocity);
     }
     
     //For debug purposes.
@@ -61,11 +50,7 @@ class Projectile : Actor {
         //Get amount per frame, rather than per second
         let accel_f = GLKVector3DivideScalar(_acceleration, 60);
         _velocity = GLKVector3Add(_velocity, accel_f);
-        //print("\(_velocity.x), \(_velocity.y), \(_velocity.z)");
-        let velocity_f = GLKVector3DivideScalar(_velocity, 60);
-        //print("\(velocity_f.x), \(velocity_f.y), \(velocity_f.z)");
-        //print("\(_position.x), \(_position.y), \(_position.z)");
-        _position = GLKVector3Add(_position, velocity_f);
+        let velocity_f = GLKVector3DivideScalar(_velocity, 60);        _position = GLKVector3Add(_position, velocity_f);
         //print("\(_position.x), \(_position.y), \(_position.z)");
         
         checkCollision();
