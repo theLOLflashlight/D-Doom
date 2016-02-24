@@ -84,6 +84,11 @@ class GameViewController: GLKViewController
 //        sender.setTranslation(CGPointMake(0, 0), inView: self.view)
 //    }
     
+    @IBAction func MoveCamera(sender: UIButton) {
+        
+        position = GLKVector3Subtract(position, direction)
+    }
+    
     deinit
     {
         self.tearDownGL()
@@ -285,6 +290,7 @@ class GameViewController: GLKViewController
             }
         }
     }
+    
     func handlePanGesture(recognizer : UIPanGestureRecognizer) {
         
         if(recognizer.state == UIGestureRecognizerState.Began) {
