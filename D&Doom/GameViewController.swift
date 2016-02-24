@@ -124,7 +124,7 @@ class GameViewController: GLKViewController
     var _noSwipe = false;
     var _swipeHit = false;
     
-    let screenSize : CGRect = UIScreen.mainScreen().bounds;
+    var screenSize : CGRect = UIScreen.mainScreen().bounds;
     var imageSize = CGSize(width: 200, height: 200); //arbitrary initialization
     var _imageView = UIImageView();
     
@@ -450,10 +450,12 @@ class GameViewController: GLKViewController
         }
         
         //Update image for lines
+        screenSize = UIScreen.mainScreen().bounds;
         imageSize = CGSize(width: screenSize.width, height: screenSize.height);
         _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
         self.view.addSubview(_imageView)
         let image = drawCustomImage(imageSize)
+        //_imageView.
         _imageView.image = image
     }
     
