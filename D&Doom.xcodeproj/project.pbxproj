@@ -23,6 +23,10 @@
 		8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */; };
 		8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548B1C7D377C008FB22C /* footsteps_gravel.wav */; };
 		815454901C7D377C008FB22C /* shooting_star.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548C1C7D377C008FB22C /* shooting_star.wav */; };
+		815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454911C7D4673008FB22C /* sword-clash1.mp3 */; };
+		815454941C7D4909008FB22C /* magic-quake2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454931C7D4909008FB22C /* magic-quake2.mp3 */; };
+		815454961C7D49ED008FB22C /* Reference for sounds in Resources */ = {isa = PBXBuildFile; fileRef = 815454951C7D49ED008FB22C /* Reference for sounds */; };
+		8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,10 @@
 		8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = footsteps_gravel_01.mp3; sourceTree = "<group>"; };
 		8154548B1C7D377C008FB22C /* footsteps_gravel.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footsteps_gravel.wav; sourceTree = "<group>"; };
 		8154548C1C7D377C008FB22C /* shooting_star.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shooting_star.wav; sourceTree = "<group>"; };
+		815454911C7D4673008FB22C /* sword-clash1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sword-clash1.mp3"; sourceTree = "<group>"; };
+		815454931C7D4909008FB22C /* magic-quake2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "magic-quake2.mp3"; path = "../../../Downloads/magic-quake2.mp3"; sourceTree = "<group>"; };
+		815454951C7D49ED008FB22C /* Reference for sounds */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Reference for sounds"; sourceTree = "<group>"; };
+		815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swipe_whiff.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,7 @@
 				539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */,
 				539EC90A1C6BD4DF00894807 /* Info.plist */,
 				530B4E751C75520900E21344 /* Player Class Playground.playground */,
+				815454951C7D49ED008FB22C /* Reference for sounds */,
 			);
 			path = "D&Doom";
 			sourceTree = "<group>";
@@ -119,6 +128,9 @@
 		8101F0671C7CFE7600F284BF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */,
+				815454931C7D4909008FB22C /* magic-quake2.mp3 */,
+				815454911C7D4673008FB22C /* sword-clash1.mp3 */,
 				815454891C7D377C008FB22C /* 'flyby'.wav */,
 				8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */,
 				8154548B1C7D377C008FB22C /* footsteps_gravel.wav */,
@@ -204,13 +216,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				530B4E9A1C75598100E21344 /* Shader.fsh in Resources */,
+				815454941C7D4909008FB22C /* magic-quake2.mp3 in Resources */,
+				8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */,
 				8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */,
 				8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
+				815454961C7D49ED008FB22C /* Reference for sounds in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
 				815454901C7D377C008FB22C /* shooting_star.wav in Resources */,
 				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
+				815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */,
 				8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
