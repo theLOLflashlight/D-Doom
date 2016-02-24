@@ -29,8 +29,9 @@ class Projectile : Actor {
         _position = ActorConstants._origin;
         
         //Only normalize if it's not 0 - otherwise it would return nil (and it multiplying speed by 0 won't change the value anyway)
-        //print("args: (\(screenX), \(screenY), \(farplaneZ))");        printVector("vecDest: ", vec: lineVectorWorld);
-        //printVector("lineVectorWorld: ", vec: lineVectorWorld);
+        print("args: (\(screenX), \(screenY), \(farplaneZ))");
+        printVector("vecDest: ", vec: lineVectorWorld);
+        printVector("lineVectorWorld: ", vec: lineVectorWorld);
         if(GLKVector3Length(lineVectorWorld) != 0) {
             _velocity = GLKVector3MultiplyScalar(GLKVector3Normalize(lineVectorWorld), speed);
         }

@@ -11,6 +11,8 @@
 		44D138391C7D4EAD00B332AA /* projectile.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D138371C7D4EAD00B332AA /* projectile.c */; };
 		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
 		530B4E9B1C75598100E21344 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E991C75598100E21344 /* Shader.vsh */; };
+		53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */; };
+		53701E461C7D50D80078E09B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53701E451C7D50D80078E09B /* AVFoundation.framework */; };
 		539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */; };
 		539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC8FE1C6BD4DF00894807 /* MainViewController.swift */; };
 		539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC9001C6BD4DF00894807 /* GameViewController.swift */; };
@@ -24,7 +26,6 @@
 		8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548B1C7D377C008FB22C /* footsteps_gravel.wav */; };
 		815454901C7D377C008FB22C /* shooting_star.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548C1C7D377C008FB22C /* shooting_star.wav */; };
 		815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454911C7D4673008FB22C /* sword-clash1.mp3 */; };
-		815454961C7D49ED008FB22C /* Reference for sounds in Resources */ = {isa = PBXBuildFile; fileRef = 815454951C7D49ED008FB22C /* Reference for sounds */; };
 		8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */; };
 		8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8154549B1C7D5608008FB22C /* magic-quake2.mp3 */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,8 @@
 		530B4E751C75520900E21344 /* Player Class Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Player Class Playground.playground"; sourceTree = "<group>"; };
 		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		530B4E991C75598100E21344 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		53701E451C7D50D80078E09B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		539EC8F91C6BD4DF00894807 /* D&Doom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "D&Doom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		539EC8FE1C6BD4DF00894807 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +56,6 @@
 		8154548B1C7D377C008FB22C /* footsteps_gravel.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footsteps_gravel.wav; sourceTree = "<group>"; };
 		8154548C1C7D377C008FB22C /* shooting_star.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shooting_star.wav; sourceTree = "<group>"; };
 		815454911C7D4673008FB22C /* sword-clash1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sword-clash1.mp3"; sourceTree = "<group>"; };
-		815454951C7D49ED008FB22C /* Reference for sounds */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Reference for sounds"; sourceTree = "<group>"; };
 		815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swipe_whiff.mp3; sourceTree = "<group>"; };
 		8154549B1C7D5608008FB22C /* magic-quake2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "magic-quake2.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53701E461C7D50D80078E09B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +94,7 @@
 		539EC8F01C6BD4DF00894807 = {
 			isa = PBXGroup;
 			children = (
+				53701E451C7D50D80078E09B /* AVFoundation.framework */,
 				539EC8FB1C6BD4DF00894807 /* D&Doom */,
 				539EC8FA1C6BD4DF00894807 /* Products */,
 			);
@@ -119,8 +123,7 @@
 				539EC9051C6BD4DF00894807 /* Assets.xcassets */,
 				539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */,
 				539EC90A1C6BD4DF00894807 /* Info.plist */,
-				530B4E751C75520900E21344 /* Player Class Playground.playground */,
-				815454951C7D49ED008FB22C /* Reference for sounds */,
+				53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */,
 			);
 			path = "D&Doom";
 			sourceTree = "<group>";
@@ -222,7 +225,6 @@
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
 				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
-				815454961C7D49ED008FB22C /* Reference for sounds in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
 				815454901C7D377C008FB22C /* shooting_star.wav in Resources */,
 				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
@@ -241,6 +243,7 @@
 				44426C241C7D3F60006FAC24 /* level.c in Sources */,
 				812F4E341C76BD7500002245 /* Projectile.swift in Sources */,
 				539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */,
+				53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */,
 				539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */,
 				44D138391C7D4EAD00B332AA /* projectile.c in Sources */,
 				539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */,
