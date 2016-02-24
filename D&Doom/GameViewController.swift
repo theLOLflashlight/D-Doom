@@ -9,6 +9,8 @@
 import UIKit
 import GLKit
 import OpenGLES
+import SpriteKit
+import AVFoundation
 
 func BUFFER_OFFSET( i: Int ) -> UnsafePointer< Void >
 {
@@ -68,18 +70,6 @@ class GameViewController: GLKViewController
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
     
-    func cameraMovement()
-    {
-        let horizontalAngle = _baseHorizontalAngle + currhorizontalAngle;
-        let verticalAngle = _baseVerticalAngle + currverticalAngle;
-       direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
-        sinf(verticalAngle),
-        cosf(verticalAngle) * cosf(horizontalAngle));
-    
-        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
-        print("horizontalAngle: \(horizontalAngle); verticalAngle: \(verticalAngle)");
-    }
-    
 //    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
 //        
 //        let point: CGPoint = sender.translationInView(self.view)
@@ -127,10 +117,25 @@ class GameViewController: GLKViewController
     var _prevTranslationY : CGFloat = 0;
     var _translationPoints : [CGPoint] = [];
     var _noSwipe = false;
+    var _swipeHit = false;
     
     let screenSize : CGRect = UIScreen.mainScreen().bounds;
     var imageSize = CGSize(width: 200, height: 200); //arbitrary initialization
     var _imageView = UIImageView();
+    
+    //sound setup
+    // Grab the path, make sure to add it to your project!
+    let filePath = "footsteps_gravel";
+    var sound : NSURL = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
+    //var audioPlayer = AVAudioPlayer()
+    var mySound: SystemSoundID = 0;
+    var themePlayer : AVAudioPlayer!;
+    var soundPlayer : AVAudioPlayer!;
+    var soundPlayer2 : AVAudioPlayer!;
+    
+    //Make an arraylist keeping track of each audio played, and remove each AVPAudioPlayer from the arraylist as each of them has completed its track, is the plan - though, still have to figure out how to set delegate and such, as to-do.
+    //
+    var AVAudioPlayers : [AVAudioPlayer] = [];
     
     //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
     func drawCustomImage(size: CGSize) -> UIImage {
@@ -166,6 +171,28 @@ class GameViewController: GLKViewController
         return image
     }
     
+    //animation for background color turning brown (due to earthquake)
+    var animationProgress : Float = 0.0; //from 0 to 1
+    
+    func ThemeSound() {
+        
+        if let path = NSBundle.mainBundle().pathForResource("footsteps_gravel", ofType: "wav") {
+            let soundURL = NSURL(fileURLWithPath:path)
+            
+            var error:NSError?
+            do {
+                themePlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                themePlayer.prepareToPlay()
+                themePlayer.numberOfLoops = -1;
+                themePlayer.play()
+            }
+            catch {
+            }
+        }
+
+        
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -186,6 +213,7 @@ class GameViewController: GLKViewController
         mHealthLabel.text = "77%"
         
         mWeaponLabel.text = "N/A"
+        animationProgress = 1;
         
         //handle tap
         let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTapGesture:"));
@@ -196,13 +224,48 @@ class GameViewController: GLKViewController
         let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"));
         view.addGestureRecognizer(panGesture);
         
-        imageSize = CGSize(width: screenSize.width, height: screenSize.height);
-        _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
-        self.view.addSubview(_imageView)
-        let image = drawCustomImage(imageSize)
-        _imageView.image = image
-        
+        //play looping sound
+        //From http://stackoverflow.com/questions/30873056/ios-swift-2-0-avaudioplayer-is-not-playing-any-sound
+        ThemeSound()
         self.setupGL()
+    }
+    /*func replaySound() {
+        AudioServicesPlaySystemSound(mySound);
+    }*/
+    
+    //func playSound(inout soundPlayer? : AVAudioPlayer) {
+    //}
+    
+    func cameraMovement()
+    {
+        var horizontalAngle = _baseHorizontalAngle + currhorizontalAngle;
+        var verticalAngle = _baseVerticalAngle + currverticalAngle;
+        
+        //for animationProgress of shake
+        if(animationProgress > 1) {
+            animationProgress = 1;
+        }
+        if(animationProgress < 1) {
+            animationProgress += Float(1.0)/Float(45.0);
+            var shakeMag : Float;
+            if(animationProgress < 0.70) {
+                shakeMag = 0.9 * 0.4;
+            }
+            else {
+                shakeMag = (0.9 - (animationProgress - 0.7) * 0.9 / 0.3) * 0.4; //after reaching 0.7 progress (when sound starts to dwindle), linearly decrease max magnitude to 0
+            }
+            //modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, Float(arc4random())*shakeMag, Float(arc4random())*shakeMag, 0);
+            //GLKVector3Make(position.x + Float(arc4random())*shakeMag, position.y + Float(arc4random())*shakeMag, position.z + Float(arc4random())*shakeMag);
+            horizontalAngle += (Float(arc4random()) / Float(UINT32_MAX)) * Float(shakeMag);
+            verticalAngle += (Float(arc4random()) / Float(UINT32_MAX)) * Float(shakeMag);
+        }
+        
+        direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
+            sinf(verticalAngle),
+            cosf(verticalAngle) * cosf(horizontalAngle));
+        
+        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
+        //print("horizontalAngle: \(horizontalAngle); verticalAngle: \(verticalAngle)");
     }
     
     //Tap input event handler
@@ -219,8 +282,33 @@ class GameViewController: GLKViewController
         mouseY = -location.y + screenSize.height / 2;
         //var newProjectile = Projectile(location.x, location.y, 0, 30);
         //Need model, view, and projection for the projectile.
+        
+        
+        //Play sound
+        if let path = NSBundle.mainBundle().pathForResource("'flyby'", ofType: "wav") {
+            let soundURL = NSURL(fileURLWithPath:path)
+            
+            var error:NSError?
+            do {
+                soundPlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                soundPlayer.prepareToPlay()
+                //No loops
+                soundPlayer.play()
+            }
+            catch {
+            }
+        }
     }
     func handlePanGesture(recognizer : UIPanGestureRecognizer) {
+        
+        let translation = recognizer.translationInView(self.view); //reusing, if the method could only be called once per recognize ... oh, was due to it being point.
+        let location = recognizer.locationInView(self.view);
+        
+        //Actually, just get furthest radius from the origin.
+        let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
+        let radLength = CGFloat(GLKVector2Length(radiusVec))
+        
+        
         
         if(recognizer.state == UIGestureRecognizerState.Began) {
             _maxRadius = 0;
@@ -231,15 +319,30 @@ class GameViewController: GLKViewController
         if(recognizer.state == UIGestureRecognizerState.Ended) {
             _noSwipe = false;
             _translationPoints.removeAll();
+            if(radLength >= 80) { //valid swipe
+                var swipeSound : String;
+                var swipeSoundExt : String = "mp3";
+                if(_swipeHit) {
+                    swipeSound = "sword-clash1"
+                }
+                else {
+                    swipeSound = "swipe_whiff";
+                }
+                if let path = NSBundle.mainBundle().pathForResource(swipeSound, ofType: swipeSoundExt) {
+                    let soundURL = NSURL(fileURLWithPath:path)
+                    
+                    var error:NSError?
+                    do {
+                        soundPlayer2 = try AVAudioPlayer(contentsOfURL: soundURL);
+                        soundPlayer2.prepareToPlay()
+                        soundPlayer2.play()
+                    }
+                    catch {
+                    }
+                }
+            }
         }
         
-        let translation = recognizer.translationInView(self.view); //reusing, if the method could only be called once per recognize ... oh, was due to it being point.
-        let location = recognizer.locationInView(self.view);
-        
-        //Get furthest X,Y magnitude at the direction moved towards.
-        //Actually, just get furthest radius from the origin.
-        let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
-        let radLength = CGFloat(GLKVector2Length(radiusVec))
         if(radLength > _maxRadius) {
             _maxRadius = radLength;
         }
@@ -259,7 +362,6 @@ class GameViewController: GLKViewController
         
         
         
-        
         //let point: CGPoint = recognizer.translationInView(self.view)
         
         
@@ -269,10 +371,6 @@ class GameViewController: GLKViewController
             _baseVerticalAngle += currverticalAngle;
             //currhorizontalAngle = 0;
             //currverticalAngle = 0;
-            //_maxRadius = 0;
-            //_maxTranslationY = 0;
-            //_noSwipe = false;
-            //_translationPoints.removeAll();
         }
         currhorizontalAngle = Float(translation.x) * rotationSpeed;
         currverticalAngle = Float(translation.y) * rotationSpeed;
@@ -289,9 +387,26 @@ class GameViewController: GLKViewController
     
     //Jacob: Shake input handler
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
+        if motion == .MotionShake { //just having earthquake for now
             //shake method here
             //Cast spell
+            
+            animationProgress = 0; //begins the animation of earthquake
+            if let path = NSBundle.mainBundle().pathForResource("magic-quake2", ofType: "mp3") {
+                let soundURL = NSURL(fileURLWithPath:path)
+                
+                var error:NSError?
+                do {
+                    soundPlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                    soundPlayer.prepareToPlay()
+                    //No loops
+                    soundPlayer.play()
+                }
+                catch {
+                }
+            }
+            
+            //Right now, it simply shakes the camera, but maybe shaking the world instead could be considered?
         }
     }
     
@@ -327,6 +442,13 @@ class GameViewController: GLKViewController
             blurEffectView.addSubview( vibeEffectView )
             mHud.insertSubview( blurEffectView, atIndex: 0 )
         }
+        
+        //Update image for lines
+        imageSize = CGSize(width: screenSize.width, height: screenSize.height);
+        _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
+        self.view.addSubview(_imageView)
+        let image = drawCustomImage(imageSize)
+        _imageView.image = image
     }
     
     override func viewDidAppear( animated: Bool )
@@ -413,19 +535,30 @@ class GameViewController: GLKViewController
         let aspect = fabsf( Float( self.view.bounds.size.width / self.view.bounds.size.height ) )
         let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 65.0 ), aspect, 0.1, 100.0 )
         
+        
+        
         self.effect?.transform.projectionMatrix = projectionMatrix
         
         self.cameraMovement();
+        
+        //var newPos : GLKVector3;
         
         modelViewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z,
             GLKVector3Subtract(position, direction).x,
             GLKVector3Subtract(position, direction).y,
             GLKVector3Subtract(position, direction).z,
             up.x, up.y, up.z);
+        
+        //self.effect?. = UIColor.brownColor().colorWithAlphaComponent(CGFloat(1 - animationProgress)); //set background color
+        
         modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
         //modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         //modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
+        
+        
         self.effect?.transform.modelviewMatrix = modelViewMatrix;
+        
+        
         
         //Test model, view, and projection for projectile
         if(toCreateProjectile) {

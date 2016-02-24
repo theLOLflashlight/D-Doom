@@ -19,6 +19,14 @@
 		539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */; };
 		812DAD0E1C792A5400027642 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812DAD0D1C792A5400027642 /* Actor.swift */; };
 		812F4E341C76BD7500002245 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F4E331C76BD7500002245 /* Projectile.swift */; };
+		8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */ = {isa = PBXBuildFile; fileRef = 815454891C7D377C008FB22C /* 'flyby'.wav */; };
+		8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */; };
+		8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548B1C7D377C008FB22C /* footsteps_gravel.wav */; };
+		815454901C7D377C008FB22C /* shooting_star.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548C1C7D377C008FB22C /* shooting_star.wav */; };
+		815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454911C7D4673008FB22C /* sword-clash1.mp3 */; };
+		815454961C7D49ED008FB22C /* Reference for sounds in Resources */ = {isa = PBXBuildFile; fileRef = 815454951C7D49ED008FB22C /* Reference for sounds */; };
+		8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */; };
+		8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8154549B1C7D5608008FB22C /* magic-quake2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +45,14 @@
 		539EC90A1C6BD4DF00894807 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		812DAD0D1C792A5400027642 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		812F4E331C76BD7500002245 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		815454891C7D377C008FB22C /* 'flyby'.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "'flyby'.wav"; sourceTree = "<group>"; };
+		8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = footsteps_gravel_01.mp3; sourceTree = "<group>"; };
+		8154548B1C7D377C008FB22C /* footsteps_gravel.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footsteps_gravel.wav; sourceTree = "<group>"; };
+		8154548C1C7D377C008FB22C /* shooting_star.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shooting_star.wav; sourceTree = "<group>"; };
+		815454911C7D4673008FB22C /* sword-clash1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sword-clash1.mp3"; sourceTree = "<group>"; };
+		815454951C7D49ED008FB22C /* Reference for sounds */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Reference for sounds"; sourceTree = "<group>"; };
+		815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swipe_whiff.mp3; sourceTree = "<group>"; };
+		8154549B1C7D5608008FB22C /* magic-quake2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "magic-quake2.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +87,7 @@
 		539EC8FB1C6BD4DF00894807 /* D&Doom */ = {
 			isa = PBXGroup;
 			children = (
+				8101F0681C7CFE7B00F284BF /* Assets */,
 				812DAD091C79292E00027642 /* Actors */,
 				530B4E981C75598100E21344 /* Shader.fsh */,
 				530B4E991C75598100E21344 /* Shader.vsh */,
@@ -85,6 +102,28 @@
 				53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */,
 			);
 			path = "D&Doom";
+			sourceTree = "<group>";
+		};
+		8101F0671C7CFE7600F284BF /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				8154549B1C7D5608008FB22C /* magic-quake2.mp3 */,
+				815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */,
+				815454911C7D4673008FB22C /* sword-clash1.mp3 */,
+				815454891C7D377C008FB22C /* 'flyby'.wav */,
+				8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */,
+				8154548B1C7D377C008FB22C /* footsteps_gravel.wav */,
+				8154548C1C7D377C008FB22C /* shooting_star.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		8101F0681C7CFE7B00F284BF /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8101F0671C7CFE7600F284BF /* Sounds */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		812DAD091C79292E00027642 /* Actors */ = {
@@ -155,10 +194,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				530B4E9A1C75598100E21344 /* Shader.fsh in Resources */,
+				8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */,
+				8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */,
+				8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
+				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
+				815454961C7D49ED008FB22C /* Reference for sounds in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
+				815454901C7D377C008FB22C /* shooting_star.wav in Resources */,
 				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
+				815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */,
+				8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
