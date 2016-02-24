@@ -69,7 +69,7 @@ class Projectile : Actor {
         //print("\(_position.x), \(_position.y), \(_position.z)");
         
         checkCollision();
-        printVector("Position: ", vec: _position);
+        //printVector("Position: ", vec: _position);
     }
     func checkCollision() {
         

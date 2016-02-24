@@ -9,6 +9,8 @@
 import UIKit
 import GLKit
 import OpenGLES
+import SpriteKit
+import AVFoundation
 
 func BUFFER_OFFSET( i: Int ) -> UnsafePointer< Void >
 {
@@ -67,18 +69,7 @@ class GameViewController: GLKViewController
     
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
-    
-    func cameraMovement()
-    {
-        let horizontalAngle = _baseHorizontalAngle + currhorizontalAngle;
-        let verticalAngle = _baseVerticalAngle + currverticalAngle;
-       direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
-        sinf(verticalAngle),
-        cosf(verticalAngle) * cosf(horizontalAngle));
-    
-        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
-        print("horizontalAngle: \(horizontalAngle); verticalAngle: \(verticalAngle)");
-    }
+    var ThemePlayer : AVAudioPlayer!;
     
 //    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
 //        
@@ -132,6 +123,13 @@ class GameViewController: GLKViewController
     var imageSize = CGSize(width: 200, height: 200); //arbitrary initialization
     var _imageView = UIImageView();
     
+    //sound setup
+    // Grab the path, make sure to add it to your project!
+    let filePath = "footsteps_gravel";
+    var sound : NSURL = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
+    var audioPlayer = AVAudioPlayer()
+    var mySound: SystemSoundID = 0;
+    
     //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
     func drawCustomImage(size: CGSize) -> UIImage {
         // Setup our context
@@ -166,6 +164,9 @@ class GameViewController: GLKViewController
         return image
     }
     
+    //animation for background color turning brown (due to earthquake)
+    var animationProgress : Float = 0.0; //from 0 to 1
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -186,6 +187,7 @@ class GameViewController: GLKViewController
         mHealthLabel.text = "77%"
         
         mWeaponLabel.text = "N/A"
+        animationProgress = 1;
         
         //handle tap
         let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTapGesture:"));
@@ -202,7 +204,55 @@ class GameViewController: GLKViewController
         let image = drawCustomImage(imageSize)
         _imageView.image = image
         
+        //sound setup
+        sound = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
+        mySound = 0;
+        var ThemePlayer : AVAudioPlayer;
+        var error:NSError?
+        do {
+            ThemePlayer = try AVAudioPlayer(contentsOfURL: sound);
+            ThemePlayer.prepareToPlay();
+            ThemePlayer.numberOfLoops = -1;
+            ThemePlayer.play();
+        }
+        catch {
+            print("error");
+        }
+        //play looping sound
+//        AudioServicesCreateSystemSoundID(sound, &mySound)
+        // Play
+  //          AudioServicesPlaySystemSound(mySound);
+        
         self.setupGL()
+    }
+    
+    func playSound(filePath : String) {
+    }
+    
+    func cameraMovement()
+    {
+        var horizontalAngle = _baseHorizontalAngle + currhorizontalAngle;
+        var verticalAngle = _baseVerticalAngle + currverticalAngle;
+        
+        //for animationProgress of shake
+        if(animationProgress > 1) {
+            animationProgress = 1;
+        }
+        if(animationProgress < 1) {
+            animationProgress += Float(1.0)/Float(30.0);
+            let shakeMag = (1 - animationProgress) * 0.3;
+            //modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, Float(arc4random())*shakeMag, Float(arc4random())*shakeMag, 0);
+            //GLKVector3Make(position.x + Float(arc4random())*shakeMag, position.y + Float(arc4random())*shakeMag, position.z + Float(arc4random())*shakeMag);
+            horizontalAngle += (Float(arc4random()) / Float(UINT32_MAX)) * Float(shakeMag);
+            verticalAngle += (Float(arc4random()) / Float(UINT32_MAX)) * Float(shakeMag);
+        }
+        
+        direction = GLKVector3Make(cosf(verticalAngle) * sinf(horizontalAngle),
+            sinf(verticalAngle),
+            cosf(verticalAngle) * cosf(horizontalAngle));
+        
+        horizontalMovement = GLKVector3Make(sinf(horizontalAngle - Float(M_PI_2)), 0, cosf(horizontalAngle - Float(M_PI_2)));
+        //print("horizontalAngle: \(horizontalAngle); verticalAngle: \(verticalAngle)");
     }
     
     //Tap input event handler
@@ -269,10 +319,6 @@ class GameViewController: GLKViewController
             _baseVerticalAngle += currverticalAngle;
             //currhorizontalAngle = 0;
             //currverticalAngle = 0;
-            //_maxRadius = 0;
-            //_maxTranslationY = 0;
-            //_noSwipe = false;
-            //_translationPoints.removeAll();
         }
         currhorizontalAngle = Float(translation.x) * rotationSpeed;
         currverticalAngle = Float(translation.y) * rotationSpeed;
@@ -292,6 +338,8 @@ class GameViewController: GLKViewController
         if motion == .MotionShake {
             //shake method here
             //Cast spell
+            animationProgress = 0; //begins the animation of earthquake
+            //Right now, it simply shakes the camera, but maybe shaking the world instead could be considered?
         }
     }
     
@@ -413,19 +461,31 @@ class GameViewController: GLKViewController
         let aspect = fabsf( Float( self.view.bounds.size.width / self.view.bounds.size.height ) )
         let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 65.0 ), aspect, 0.1, 100.0 )
         
+        
+        
         self.effect?.transform.projectionMatrix = projectionMatrix
         
         self.cameraMovement();
+        
+        //var newPos : GLKVector3;
         
         modelViewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z,
             GLKVector3Subtract(position, direction).x,
             GLKVector3Subtract(position, direction).y,
             GLKVector3Subtract(position, direction).z,
             up.x, up.y, up.z);
+        
+        //self.effect?. = UIColor.brownColor().colorWithAlphaComponent(CGFloat(1 - animationProgress)); //set background color
+        print(animationProgress);
+        
         modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
         //modelViewMatrix = GLKMatrix4Multiply( baseModelViewMatrix, modelViewMatrix )
         //modelViewProjectionMatrix = GLKMatrix4Multiply( projectionMatrix, modelViewMatrix )
+        
+        
         self.effect?.transform.modelviewMatrix = modelViewMatrix;
+        
+        
         
         //Test model, view, and projection for projectile
         if(toCreateProjectile) {
