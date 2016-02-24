@@ -15,8 +15,11 @@
 		539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9021C6BD4DF00894807 /* Main.storyboard */; };
 		539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9051C6BD4DF00894807 /* Assets.xcassets */; };
 		539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */; };
+		8101F06A1C7CFE9300F284BF /* footsteps_gravel_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8101F0691C7CFE9300F284BF /* footsteps_gravel_01.mp3 */; };
+		8101F06C1C7CFEC000F284BF /* footsteps_gravel.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8101F06B1C7CFEC000F284BF /* footsteps_gravel.wav */; };
 		812DAD0E1C792A5400027642 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812DAD0D1C792A5400027642 /* Actor.swift */; };
 		812F4E341C76BD7500002245 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F4E331C76BD7500002245 /* Projectile.swift */; };
+		815454861C7D26F0008FB22C /* 'flyby'.wav in Resources */ = {isa = PBXBuildFile; fileRef = 815454851C7D26F0008FB22C /* 'flyby'.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +34,11 @@
 		539EC9051C6BD4DF00894807 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		539EC9081C6BD4DF00894807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		539EC90A1C6BD4DF00894807 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8101F0691C7CFE9300F284BF /* footsteps_gravel_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = footsteps_gravel_01.mp3; path = ../../../Downloads/footsteps_gravel_01.mp3; sourceTree = "<group>"; };
+		8101F06B1C7CFEC000F284BF /* footsteps_gravel.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = footsteps_gravel.wav; path = ../../../Downloads/footsteps_gravel.wav; sourceTree = "<group>"; };
 		812DAD0D1C792A5400027642 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		812F4E331C76BD7500002245 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		815454851C7D26F0008FB22C /* 'flyby'.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "'flyby'.wav"; path = "../../../Downloads/'flyby'.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +71,7 @@
 		539EC8FB1C6BD4DF00894807 /* D&Doom */ = {
 			isa = PBXGroup;
 			children = (
+				8101F0681C7CFE7B00F284BF /* Assets */,
 				812DAD091C79292E00027642 /* Actors */,
 				530B4E981C75598100E21344 /* Shader.fsh */,
 				530B4E991C75598100E21344 /* Shader.vsh */,
@@ -78,6 +85,24 @@
 				530B4E751C75520900E21344 /* Player Class Playground.playground */,
 			);
 			path = "D&Doom";
+			sourceTree = "<group>";
+		};
+		8101F0671C7CFE7600F284BF /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				815454851C7D26F0008FB22C /* 'flyby'.wav */,
+				8101F06B1C7CFEC000F284BF /* footsteps_gravel.wav */,
+				8101F0691C7CFE9300F284BF /* footsteps_gravel_01.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		8101F0681C7CFE7B00F284BF /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8101F0671C7CFE7600F284BF /* Sounds */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		812DAD091C79292E00027642 /* Actors */ = {
@@ -147,11 +172,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8101F06A1C7CFE9300F284BF /* footsteps_gravel_01.mp3 in Resources */,
+				8101F06C1C7CFEC000F284BF /* footsteps_gravel.wav in Resources */,
 				530B4E9A1C75598100E21344 /* Shader.fsh in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
 				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
+				815454861C7D26F0008FB22C /* 'flyby'.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
