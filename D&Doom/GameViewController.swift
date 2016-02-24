@@ -130,6 +130,11 @@ class GameViewController: GLKViewController
     var mySound: SystemSoundID = 0;
     var themePlayer : AVAudioPlayer!;
     var soundPlayer : AVAudioPlayer!;
+    var soundPlayer2 : AVAudioPlayer!;
+    
+    //Make an arraylist keeping track of each audio played, and remove each AVPAudioPlayer from the arraylist as each of them has completed its track, is the plan - though, still have to figure out how to set delegate and such, as to-do.
+    //
+    var AVAudioPlayers : [AVAudioPlayer] = [];
     
     //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
     func drawCustomImage(size: CGSize) -> UIImage {
@@ -177,6 +182,7 @@ class GameViewController: GLKViewController
             do {
                 themePlayer = try AVAudioPlayer(contentsOfURL: soundURL);
                 themePlayer.prepareToPlay()
+                themePlayer.numberOfLoops = -1;
                 themePlayer.play()
             }
             catch {
@@ -222,12 +228,12 @@ class GameViewController: GLKViewController
         ThemeSound()
         self.setupGL()
     }
-    func replaySound() {
+    /*func replaySound() {
         AudioServicesPlaySystemSound(mySound);
-    }
+    }*/
     
-    func playSound(filePath : String) {
-    }
+    //func playSound(inout soundPlayer? : AVAudioPlayer) {
+    //}
     
     func cameraMovement()
     {
@@ -271,7 +277,7 @@ class GameViewController: GLKViewController
         //Need model, view, and projection for the projectile.
         
         
-        
+        //Play sound
         if let path = NSBundle.mainBundle().pathForResource("'flyby'", ofType: "wav") {
             let soundURL = NSURL(fileURLWithPath:path)
             
@@ -279,6 +285,7 @@ class GameViewController: GLKViewController
             do {
                 soundPlayer = try AVAudioPlayer(contentsOfURL: soundURL);
                 soundPlayer.prepareToPlay()
+                //No loops
                 soundPlayer.play()
             }
             catch {
@@ -286,6 +293,15 @@ class GameViewController: GLKViewController
         }
     }
     func handlePanGesture(recognizer : UIPanGestureRecognizer) {
+        
+        let translation = recognizer.translationInView(self.view); //reusing, if the method could only be called once per recognize ... oh, was due to it being point.
+        let location = recognizer.locationInView(self.view);
+        
+        //Actually, just get furthest radius from the origin.
+        let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
+        let radLength = CGFloat(GLKVector2Length(radiusVec))
+        
+        
         
         if(recognizer.state == UIGestureRecognizerState.Began) {
             _maxRadius = 0;
@@ -296,15 +312,22 @@ class GameViewController: GLKViewController
         if(recognizer.state == UIGestureRecognizerState.Ended) {
             _noSwipe = false;
             _translationPoints.removeAll();
+            if(radLength >= 80) { //valid swipe
+                if let path = NSBundle.mainBundle().pathForResource("sword-clash1", ofType: "mp3") {
+                    let soundURL = NSURL(fileURLWithPath:path)
+                    
+                    var error:NSError?
+                    do {
+                        soundPlayer2 = try AVAudioPlayer(contentsOfURL: soundURL);
+                        soundPlayer2.prepareToPlay()
+                        soundPlayer2.play()
+                    }
+                    catch {
+                    }
+                }
+            }
         }
         
-        let translation = recognizer.translationInView(self.view); //reusing, if the method could only be called once per recognize ... oh, was due to it being point.
-        let location = recognizer.locationInView(self.view);
-        
-        //Get furthest X,Y magnitude at the direction moved towards.
-        //Actually, just get furthest radius from the origin.
-        let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
-        let radLength = CGFloat(GLKVector2Length(radiusVec))
         if(radLength > _maxRadius) {
             _maxRadius = radLength;
         }
@@ -321,7 +344,6 @@ class GameViewController: GLKViewController
             _translationPoints.append(CGPoint(x: location.x, y: location.y));
         }
         //print("radLength: \(radLength); _maxRadius: \(_maxRadius)");
-        
         
         
         
