@@ -20,7 +20,9 @@ class Actor {
     
     var _velocity = GLKVector3Make(0, 0, 0);
     var _position = GLKVector3Make(0, 0, 0);
+    
     var _acceleration = GLKVector3Make(0, 0, 0); // in number of seconds
+    
     init(position: GLKVector3) {
         _position = position;
     }

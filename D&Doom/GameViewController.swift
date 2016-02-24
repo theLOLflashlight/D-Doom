@@ -142,7 +142,7 @@ class GameViewController: GLKViewController
         let context = UIGraphicsGetCurrentContext()
         
         // Setup complete, do drawing here
-        CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
+        CGContextSetStrokeColorWithColor(context, UIColor.blueColor().CGColor)
         CGContextSetLineWidth(context, 2.0)
         
         CGContextStrokeRect(context, bounds)
