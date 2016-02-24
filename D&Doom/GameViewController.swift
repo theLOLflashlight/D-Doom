@@ -56,6 +56,9 @@ class GameViewController: GLKViewController
     var direction: GLKVector3 = GLKVector3Make(0,0,0)
     var up: GLKVector3 = GLKVector3Make(0, 1, 0)
     
+    
+    var currProjectileCoord: UILabel!;
+    
     var horizontalMovement: GLKVector3 = GLKVector3Make(0, 0, 0)
     var _baseHorizontalAngle : Float = 0
     var _baseVerticalAngle : Float = 0
@@ -236,6 +239,13 @@ class GameViewController: GLKViewController
         //play looping sound
         //From http://stackoverflow.com/questions/30873056/ios-swift-2-0-avaudioplayer-is-not-playing-any-sound
         ThemeSound()
+        
+        currProjectileCoord = UILabel(frame: CGRectMake(screenSize.height/2 - 100, screenSize.width - 27, 500, 21))
+        //currProjectileCoord.center = CGPointMake(160, 284)
+        //currProjectileCoord.textAlignment = NSTextAlignment.Center
+        currProjectileCoord.text = "Projectile Coords"
+        self.view.addSubview(currProjectileCoord)
+        
         self.setupGL()
     }
     /*func replaySound() {
@@ -555,6 +565,8 @@ class GameViewController: GLKViewController
         
         //var newPos : GLKVector3;
         
+        
+        //This were used to orient the matrix.
         modelViewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z,
             GLKVector3Subtract(position, direction).x,
             GLKVector3Subtract(position, direction).y,
@@ -572,6 +584,7 @@ class GameViewController: GLKViewController
         
         
         
+        //Still have to rotate the projectile velocity and vectors to make them facing direction of the camera; currently the projectile's projectile as if the camera were from 0,0,0 to facing towards the center of the screen.
         //Test model, view, and projection for projectile
         if(toCreateProjectile) {
             let StartProjectile = Projectile.ActorConstants._origin;
@@ -585,11 +598,13 @@ class GameViewController: GLKViewController
                 ActorLists[0].append(projectile); //adds to its own constructor
             }
             toCreateProjectile = false;
-            projectile.printVector("a", vec: projectile._velocity);
+            //projectile.printVector("a", vec: projectile._velocity);
             _currProjectile = projectile;
         }
         //ActorLists[0].append(projectile);
         //ProjectileList.append(projectile);
+        
+        currProjectileCoord.text = "Projectile Pos'n: (\(_currProjectile._position.x),\(_currProjectile._position.y),\(_currProjectile._position.z))";
         
         //update line
         let image = drawCustomImage(imageSize)
