@@ -31,12 +31,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
+=======
 		44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "D&Doom-Bridging-Header.h"; sourceTree = "<group>"; };
 		44426C221C7D3F60006FAC24 /* level.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level.c; sourceTree = "<group>"; };
 		44426C231C7D3F60006FAC24 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
 		44D138371C7D4EAD00B332AA /* projectile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = projectile.c; sourceTree = "<group>"; };
 		44D138381C7D4EAD00B332AA /* projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projectile.h; sourceTree = "<group>"; };
 		530B4E751C75520900E21344 /* Player Class Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Player Class Playground.playground"; sourceTree = "<group>"; };
+>>>>>>> 715b062f9b74d71a689a20620dcff19fe3cf53d9
 		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		530B4E991C75598100E21344 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };

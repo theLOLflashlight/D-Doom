@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44426C241C7D3F60006FAC24 /* level.c in Sources */ = {isa = PBXBuildFile; fileRef = 44426C221C7D3F60006FAC24 /* level.c */; };
-		44D138391C7D4EAD00B332AA /* projectile.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D138371C7D4EAD00B332AA /* projectile.c */; };
 		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
 		530B4E9B1C75598100E21344 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E991C75598100E21344 /* Shader.vsh */; };
 		53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */; };
@@ -31,12 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "D&Doom-Bridging-Header.h"; sourceTree = "<group>"; };
-		44426C221C7D3F60006FAC24 /* level.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level.c; sourceTree = "<group>"; };
-		44426C231C7D3F60006FAC24 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
-		44D138371C7D4EAD00B332AA /* projectile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = projectile.c; sourceTree = "<group>"; };
-		44D138381C7D4EAD00B332AA /* projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projectile.h; sourceTree = "<group>"; };
-		530B4E751C75520900E21344 /* Player Class Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Player Class Playground.playground"; sourceTree = "<group>"; };
 		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		530B4E991C75598100E21344 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -72,25 +64,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		44426C1E1C7D3F28006FAC24 /* Levels */ = {
-			isa = PBXGroup;
-			children = (
-				44426C221C7D3F60006FAC24 /* level.c */,
-				44426C231C7D3F60006FAC24 /* level.h */,
-				44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */,
-			);
-			name = Levels;
-			sourceTree = "<group>";
-		};
-		44D138361C7D4E7000B332AA /* Projectiles */ = {
-			isa = PBXGroup;
-			children = (
-				44D138371C7D4EAD00B332AA /* projectile.c */,
-				44D138381C7D4EAD00B332AA /* projectile.h */,
-			);
-			name = Projectiles;
-			sourceTree = "<group>";
-		};
 		539EC8F01C6BD4DF00894807 = {
 			isa = PBXGroup;
 			children = (
@@ -111,7 +84,6 @@
 		539EC8FB1C6BD4DF00894807 /* D&Doom */ = {
 			isa = PBXGroup;
 			children = (
-				44426C1E1C7D3F28006FAC24 /* Levels */,
 				8101F0681C7CFE7B00F284BF /* Assets */,
 				812DAD091C79292E00027642 /* Actors */,
 				530B4E981C75598100E21344 /* Shader.fsh */,
@@ -145,7 +117,6 @@
 		8101F0681C7CFE7B00F284BF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				44D138361C7D4E7000B332AA /* Projectiles */,
 				8101F0671C7CFE7600F284BF /* Sounds */,
 			);
 			name = Assets;
@@ -240,12 +211,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44426C241C7D3F60006FAC24 /* level.c in Sources */,
 				812F4E341C76BD7500002245 /* Projectile.swift in Sources */,
 				539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */,
 				53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */,
 				539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */,
-				44D138391C7D4EAD00B332AA /* projectile.c in Sources */,
 				539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */,
 				812DAD0E1C792A5400027642 /* Actor.swift in Sources */,
 			);
@@ -365,7 +334,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "D&Doom/D&Doom-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -379,7 +347,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "D&Doom/D&Doom-Bridging-Header.h";
 			};
 			name = Release;
 		};

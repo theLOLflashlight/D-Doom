@@ -203,12 +203,21 @@
                                     <segue destination="ZYe-hk-d8X" kind="showDetail" action="showViewController:sender:" id="C5h-Sv-5eI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ss-Nb-i9S">
+                                <rect key="frame" x="20" y="416" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Move"/>
+                                <connections>
+                                    <action selector="MoveCamera:" destination="8rJ-Kc-sve" eventType="touchDown" id="P9m-D2-KId"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6pB-xP-jV7" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" id="BCe-O3-Ceh"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="6pB-xP-jV7" secondAttribute="bottom" id="Lsa-aC-RXi"/>
+                            <constraint firstItem="4ss-Nb-i9S" firstAttribute="top" secondItem="OMd-ah-j59" secondAttribute="bottom" constant="8" id="VgH-GC-S4B"/>
                             <constraint firstItem="OMd-ah-j59" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="uCM-Ci-GtG"/>
                         </constraints>
                         <connections>
