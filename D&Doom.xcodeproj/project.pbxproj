@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0302851E1C7E4C11006051BD /* level0.c in Sources */ = {isa = PBXBuildFile; fileRef = 0302851C1C7E4C11006051BD /* level0.c */; };
+		030285201C7E533B006051BD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0302851F1C7E533B006051BD /* OpenGLES.framework */; };
+		030285221C7E534F006051BD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030285211C7E534F006051BD /* GLKit.framework */; };
+		030285241C7E5A7F006051BD /* level0.png in Resources */ = {isa = PBXBuildFile; fileRef = 030285231C7E5A7F006051BD /* level0.png */; };
 		44426C241C7D3F60006FAC24 /* level.c in Sources */ = {isa = PBXBuildFile; fileRef = 44426C221C7D3F60006FAC24 /* level.c */; };
 		44D138391C7D4EAD00B332AA /* projectile.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D138371C7D4EAD00B332AA /* projectile.c */; };
 		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
@@ -31,12 +35,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0302851C1C7E4C11006051BD /* level0.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = level0.c; path = Levels/level0.c; sourceTree = "<group>"; };
+		0302851D1C7E4C11006051BD /* level0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = level0.h; path = Levels/level0.h; sourceTree = "<group>"; };
+		0302851F1C7E533B006051BD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		030285211C7E534F006051BD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		030285231C7E5A7F006051BD /* level0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = level0.png; path = Levels/level0.png; sourceTree = "<group>"; };
 		44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "D&Doom-Bridging-Header.h"; sourceTree = "<group>"; };
 		44426C221C7D3F60006FAC24 /* level.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level.c; sourceTree = "<group>"; };
 		44426C231C7D3F60006FAC24 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
 		44D138371C7D4EAD00B332AA /* projectile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = projectile.c; sourceTree = "<group>"; };
 		44D138381C7D4EAD00B332AA /* projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projectile.h; sourceTree = "<group>"; };
-		530B4E751C75520900E21344 /* Player Class Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Player Class Playground.playground"; sourceTree = "<group>"; };
 		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		530B4E991C75598100E21344 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				030285221C7E534F006051BD /* GLKit.framework in Frameworks */,
+				030285201C7E533B006051BD /* OpenGLES.framework in Frameworks */,
 				53701E461C7D50D80078E09B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,12 +82,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		030285251C7E5F9D006051BD /* level0 */ = {
+			isa = PBXGroup;
+			children = (
+				030285231C7E5A7F006051BD /* level0.png */,
+				0302851C1C7E4C11006051BD /* level0.c */,
+				0302851D1C7E4C11006051BD /* level0.h */,
+			);
+			name = level0;
+			sourceTree = "<group>";
+		};
 		44426C1E1C7D3F28006FAC24 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				030285251C7E5F9D006051BD /* level0 */,
 				44426C221C7D3F60006FAC24 /* level.c */,
 				44426C231C7D3F60006FAC24 /* level.h */,
-				44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -94,6 +114,8 @@
 		539EC8F01C6BD4DF00894807 = {
 			isa = PBXGroup;
 			children = (
+				030285211C7E534F006051BD /* GLKit.framework */,
+				0302851F1C7E533B006051BD /* OpenGLES.framework */,
 				53701E451C7D50D80078E09B /* AVFoundation.framework */,
 				539EC8FB1C6BD4DF00894807 /* D&Doom */,
 				539EC8FA1C6BD4DF00894807 /* Products */,
@@ -111,6 +133,7 @@
 		539EC8FB1C6BD4DF00894807 /* D&Doom */ = {
 			isa = PBXGroup;
 			children = (
+				44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */,
 				44426C1E1C7D3F28006FAC24 /* Levels */,
 				8101F0681C7CFE7B00F284BF /* Assets */,
 				812DAD091C79292E00027642 /* Actors */,
@@ -223,6 +246,7 @@
 				8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */,
 				8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
+				030285241C7E5A7F006051BD /* level0.png in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
 				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
@@ -248,6 +272,7 @@
 				44D138391C7D4EAD00B332AA /* projectile.c in Sources */,
 				539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */,
 				812DAD0E1C792A5400027642 /* Actor.swift in Sources */,
+				0302851E1C7E4C11006051BD /* level0.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
