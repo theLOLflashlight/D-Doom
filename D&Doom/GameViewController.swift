@@ -117,6 +117,7 @@ class GameViewController: GLKViewController
     var _prevTranslationY : CGFloat = 0;
     var _translationPoints : [CGPoint] = [];
     var _noSwipe = false;
+    var _swipeHit = false;
     
     let screenSize : CGRect = UIScreen.mainScreen().bounds;
     var imageSize = CGSize(width: 200, height: 200); //arbitrary initialization
@@ -245,8 +246,14 @@ class GameViewController: GLKViewController
             animationProgress = 1;
         }
         if(animationProgress < 1) {
-            animationProgress += Float(1.0)/Float(30.0);
-            let shakeMag = (1 - animationProgress) * 0.3;
+            animationProgress += Float(1.0)/Float(45.0);
+            var shakeMag : Float;
+            if(animationProgress < 0.70) {
+                shakeMag = 0.9 * 0.4;
+            }
+            else {
+                shakeMag = (0.9 - (animationProgress - 0.7) * 0.9 / 0.3) * 0.4; //after reaching 0.7 progress (when sound starts to dwindle), linearly decrease max magnitude to 0
+            }
             //modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, Float(arc4random())*shakeMag, Float(arc4random())*shakeMag, 0);
             //GLKVector3Make(position.x + Float(arc4random())*shakeMag, position.y + Float(arc4random())*shakeMag, position.z + Float(arc4random())*shakeMag);
             horizontalAngle += (Float(arc4random()) / Float(UINT32_MAX)) * Float(shakeMag);
@@ -313,7 +320,15 @@ class GameViewController: GLKViewController
             _noSwipe = false;
             _translationPoints.removeAll();
             if(radLength >= 80) { //valid swipe
-                if let path = NSBundle.mainBundle().pathForResource("sword-clash1", ofType: "mp3") {
+                var swipeSound : String;
+                var swipeSoundExt : String = "mp3";
+                if(_swipeHit) {
+                    swipeSound = "sword-clash1"
+                }
+                else {
+                    swipeSound = "swipe_whiff";
+                }
+                if let path = NSBundle.mainBundle().pathForResource(swipeSound, ofType: swipeSoundExt) {
                     let soundURL = NSURL(fileURLWithPath:path)
                     
                     var error:NSError?
@@ -372,10 +387,25 @@ class GameViewController: GLKViewController
     
     //Jacob: Shake input handler
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
+        if motion == .MotionShake { //just having earthquake for now
             //shake method here
             //Cast spell
+            
             animationProgress = 0; //begins the animation of earthquake
+            if let path = NSBundle.mainBundle().pathForResource("magic-quake2", ofType: "mp3") {
+                let soundURL = NSURL(fileURLWithPath:path)
+                
+                var error:NSError?
+                do {
+                    soundPlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                    soundPlayer.prepareToPlay()
+                    //No loops
+                    soundPlayer.play()
+                }
+                catch {
+                }
+            }
+            
             //Right now, it simply shakes the camera, but maybe shaking the world instead could be considered?
         }
     }
