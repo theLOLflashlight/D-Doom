@@ -200,6 +200,7 @@
                                 <rect key="frame" x="284" y="8" width="33" height="30"/>
                                 <state key="normal" title="Main"/>
                                 <connections>
+                                    <action selector="MainButton:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="fF9-EV-1JI"/>
                                     <segue destination="ZYe-hk-d8X" kind="showDetail" action="showViewController:sender:" id="C5h-Sv-5eI"/>
                                 </connections>
                             </button>
