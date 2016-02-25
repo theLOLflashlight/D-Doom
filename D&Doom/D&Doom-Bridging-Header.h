@@ -5,7 +5,11 @@
 #ifndef D_Doom_Bridging_Header_h
 #define D_Doom_Bridging_Header_h
 
-#import "level.h"
+// Assets
 #import "projectile.h"
+
+// Levels
+//#import "Levels/level0.h"
+#import "level.h"
 
 #endif /*D_Doom_Bridging_Header_h*/
