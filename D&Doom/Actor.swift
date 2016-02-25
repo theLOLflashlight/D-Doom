@@ -18,9 +18,8 @@ class Actor {
         static let _origin = GLKVector3Make(0, 0, 0);        
     }
     
-    var _velocity = GLKVector3Make(0, 0, 0);
     var _position = GLKVector3Make(0, 0, 0);
-    
+    var _velocity = GLKVector3Make(0, 0, 0);
     var _acceleration = GLKVector3Make(0, 0, 0); // in number of seconds
     
     init(position: GLKVector3) {
