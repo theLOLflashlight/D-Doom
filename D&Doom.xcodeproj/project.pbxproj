@@ -10,7 +10,6 @@
 		0302851E1C7E4C11006051BD /* level0.c in Sources */ = {isa = PBXBuildFile; fileRef = 0302851C1C7E4C11006051BD /* level0.c */; };
 		030285201C7E533B006051BD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0302851F1C7E533B006051BD /* OpenGLES.framework */; };
 		030285221C7E534F006051BD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030285211C7E534F006051BD /* GLKit.framework */; };
-		030285241C7E5A7F006051BD /* level0.png in Resources */ = {isa = PBXBuildFile; fileRef = 030285231C7E5A7F006051BD /* level0.png */; };
 		44426C241C7D3F60006FAC24 /* level.c in Sources */ = {isa = PBXBuildFile; fileRef = 44426C221C7D3F60006FAC24 /* level.c */; };
 		44D138391C7D4EAD00B332AA /* projectile.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D138371C7D4EAD00B332AA /* projectile.c */; };
 		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
@@ -33,6 +32,9 @@
 		815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454911C7D4673008FB22C /* sword-clash1.mp3 */; };
 		8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */; };
 		8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8154549B1C7D5608008FB22C /* magic-quake2.mp3 */; };
+		9B05985D1C82F4E00058F594 /* GunB.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B05985B1C82F4E00058F594 /* GunB.png */; };
+		9B0598601C82F5180058F594 /* EnemyA.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9B05985E1C82F5180058F594 /* EnemyA.gif */; };
+		9B0598611C82F5180058F594 /* EnemyB.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9B05985F1C82F5180058F594 /* EnemyB.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +42,6 @@
 		0302851D1C7E4C11006051BD /* level0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = level0.h; path = Levels/level0.h; sourceTree = "<group>"; };
 		0302851F1C7E533B006051BD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		030285211C7E534F006051BD /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		030285231C7E5A7F006051BD /* level0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = level0.png; path = Levels/level0.png; sourceTree = "<group>"; };
 		44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "D&Doom-Bridging-Header.h"; sourceTree = "<group>"; };
 		44426C221C7D3F60006FAC24 /* level.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level.c; sourceTree = "<group>"; };
 		44426C231C7D3F60006FAC24 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
@@ -68,6 +69,9 @@
 		815454911C7D4673008FB22C /* sword-clash1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sword-clash1.mp3"; sourceTree = "<group>"; };
 		815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swipe_whiff.mp3; sourceTree = "<group>"; };
 		8154549B1C7D5608008FB22C /* magic-quake2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "magic-quake2.mp3"; sourceTree = "<group>"; };
+		9B05985B1C82F4E00058F594 /* GunB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GunB.png; sourceTree = "<group>"; };
+		9B05985E1C82F5180058F594 /* EnemyA.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EnemyA.gif; sourceTree = "<group>"; };
+		9B05985F1C82F5180058F594 /* EnemyB.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EnemyB.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +91,6 @@
 		030285251C7E5F9D006051BD /* level0 */ = {
 			isa = PBXGroup;
 			children = (
-				030285231C7E5A7F006051BD /* level0.png */,
 				0302851C1C7E4C11006051BD /* level0.c */,
 				0302851D1C7E4C11006051BD /* level0.h */,
 			);
@@ -136,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */,
+				9B0598591C82F4A80058F594 /* Picture */,
 				44426C1E1C7D3F28006FAC24 /* Levels */,
 				8101F0681C7CFE7B00F284BF /* Assets */,
 				812DAD091C79292E00027642 /* Actors */,
@@ -184,6 +188,17 @@
 				812DAD0D1C792A5400027642 /* Actor.swift */,
 			);
 			name = Actors;
+			sourceTree = "<group>";
+		};
+		9B0598591C82F4A80058F594 /* Picture */ = {
+			isa = PBXGroup;
+			children = (
+				9B05985E1C82F5180058F594 /* EnemyA.gif */,
+				9B05985F1C82F5180058F594 /* EnemyB.gif */,
+				9B05985B1C82F4E00058F594 /* GunB.png */,
+			);
+			name = Picture;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,14 +264,16 @@
 				8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */,
 				8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
-				030285241C7E5A7F006051BD /* level0.png in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
+				9B05985D1C82F4E00058F594 /* GunB.png in Resources */,
 				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
 				815454901C7D377C008FB22C /* shooting_star.wav in Resources */,
 				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
 				815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */,
 				8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */,
+				9B0598611C82F5180058F594 /* EnemyB.gif in Resources */,
+				9B0598601C82F5180058F594 /* EnemyA.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
