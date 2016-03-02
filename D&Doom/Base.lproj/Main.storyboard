@@ -150,40 +150,40 @@
                                 <rect key="frame" x="361" y="203" width="474" height="215"/>
                             </imageView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pB-xP-jV7" userLabel="HUD">
-                                <rect key="frame" x="0.0" y="489" width="600" height="111"/>
+                                <rect key="frame" x="0.0" y="504" width="600" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="AMMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQh-fy-8DE">
-                                        <rect key="frame" x="8" y="82" width="115" height="21"/>
+                                        <rect key="frame" x="8" y="67" width="115" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="HEALTH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a84-og-2hn">
-                                        <rect key="frame" x="131" y="79" width="115" height="27"/>
+                                        <rect key="frame" x="131" y="64" width="115" height="27"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="WEAPON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-7z-nBZ">
-                                        <rect key="frame" x="477" y="79" width="115" height="27"/>
+                                        <rect key="frame" x="477" y="64" width="115" height="27"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N46-l5-bLF" userLabel="Ammo Label">
-                                        <rect key="frame" x="8" y="0.0" width="115" height="74"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
-                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knq-b8-nwJ" userLabel="Health Label">
-                                        <rect key="frame" x="131" y="0.0" width="115" height="74"/>
+                                        <rect key="frame" x="8" y="0.0" width="105" height="54"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
                                         <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSv-EC-ckL" userLabel="Health Label">
-                                        <rect key="frame" x="477" y="0.0" width="115" height="74"/>
+                                        <rect key="frame" x="477" y="0.0" width="115" height="54"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
+                                        <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="***" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knq-b8-nwJ" userLabel="Health Label">
+                                        <rect key="frame" x="131" y="0.0" width="115" height="54"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="62"/>
                                         <color key="textColor" white="1" alpha="0.55000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
