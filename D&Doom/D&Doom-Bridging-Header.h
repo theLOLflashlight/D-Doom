@@ -11,5 +11,6 @@
 // Levels
 //#import "Levels/level0.h"
 #import "level.h"
+#import "GLShader.h"
 
 #endif /*D_Doom_Bridging_Header_h*/
