@@ -151,6 +151,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GunB.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cm4-Mq-pod">
+                                <rect key="frame" x="546" y="490" width="474" height="215"/>
+                            </imageView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pB-xP-jV7" userLabel="HUD">
                                 <rect key="frame" x="0.0" y="504" width="600" height="96"/>
                                 <subviews>
@@ -217,9 +220,6 @@
                                     <action selector="MoveCamera:" destination="8rJ-Kc-sve" eventType="touchDown" id="P9m-D2-KId"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GunB.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cm4-Mq-pod">
-                                <rect key="frame" x="453" y="323" width="474" height="215"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
