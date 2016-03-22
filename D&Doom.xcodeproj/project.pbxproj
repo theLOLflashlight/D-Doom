@@ -39,6 +39,7 @@
 		9B05985D1C82F4E00058F594 /* GunB.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B05985B1C82F4E00058F594 /* GunB.png */; };
 		9B0598601C82F5180058F594 /* EnemyA.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9B05985E1C82F5180058F594 /* EnemyA.gif */; };
 		9B0598611C82F5180058F594 /* EnemyB.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9B05985F1C82F5180058F594 /* EnemyB.gif */; };
+		9BDBDFB81C940DAB0015573A /* BGT1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9BDBDFB71C940DAB0015573A /* BGT1.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		9B05985B1C82F4E00058F594 /* GunB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GunB.png; sourceTree = "<group>"; };
 		9B05985E1C82F5180058F594 /* EnemyA.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EnemyA.gif; sourceTree = "<group>"; };
 		9B05985F1C82F5180058F594 /* EnemyB.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EnemyB.gif; sourceTree = "<group>"; };
+		9BDBDFB71C940DAB0015573A /* BGT1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BGT1.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		9B0598591C82F4A80058F594 /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+				9BDBDFB71C940DAB0015573A /* BGT1.gif */,
 				9B05985E1C82F5180058F594 /* EnemyA.gif */,
 				9B05985F1C82F5180058F594 /* EnemyB.gif */,
 				9B05985B1C82F4E00058F594 /* GunB.png */,
@@ -247,6 +250,7 @@
 				TargetAttributes = {
 					539EC8F81C6BD4DF00894807 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GFW8XR3YY5;
 					};
 				};
 			};
@@ -284,6 +288,7 @@
 				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
 				815454901C7D377C008FB22C /* shooting_star.wav in Resources */,
+				9BDBDFB81C940DAB0015573A /* BGT1.gif in Resources */,
 				530B4E9B1C75598100E21344 /* Shader.vsh in Resources */,
 				815454921C7D4673008FB22C /* sword-clash1.mp3 in Resources */,
 				8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */,
@@ -425,10 +430,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "D&Doom/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom.";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "D&Doom/D&Doom-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -439,10 +448,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "D&Doom/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.D-Doom.";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "D&Doom/D&Doom-Bridging-Header.h";
 			};
 			name = Release;

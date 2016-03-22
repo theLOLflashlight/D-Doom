@@ -60,6 +60,11 @@
                     <navigationItem key="navigationItem" title="D&amp;Doom" id="7AX-RT-ldP">
                         <barButtonItem key="backBarButtonItem" title="Home" id="TDa-AF-MVj"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mCharacterbutton" destination="MBK-Hk-tXv" id="KF7-W6-bPT"/>
+                        <outlet property="mOptionButton" destination="C9n-6e-FJK" id="T6Z-gR-Ozu"/>
+                        <outlet property="mPlayButton" destination="7PH-vc-mq6" id="riZ-wJ-hMl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -261,6 +266,9 @@
                                     <action selector="MoveCamera:" destination="8rJ-Kc-sve" eventType="touchDown" id="P9m-D2-KId"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GunB.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cm4-Mq-pod">
+                                <rect key="frame" x="453" y="323" width="474" height="215"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
