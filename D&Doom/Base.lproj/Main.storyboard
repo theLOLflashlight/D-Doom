@@ -266,9 +266,6 @@
                                     <action selector="MoveCamera:" destination="8rJ-Kc-sve" eventType="touchDown" id="P9m-D2-KId"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GunB.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cm4-Mq-pod">
-                                <rect key="frame" x="453" y="323" width="474" height="215"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>

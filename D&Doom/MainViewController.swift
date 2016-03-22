@@ -46,10 +46,10 @@ class MainViewController: UIViewController
         
         mPlayButton.translatesAutoresizingMaskIntoConstraints = true;
         //let loginBtn = UIButton(frame: CGRectMake(40, 260, 240, 40))
-        mPlayButton.frame = CGRectMake(40, 650, 240, 90)
+        mPlayButton.frame = CGRectMake(40, 660, 230, 70)
         mPlayButton.layer.borderColor = UIColor.blackColor().CGColor
         mPlayButton.layer.borderWidth = 2
-        mPlayButton.titleLabel!.font = UIFont.systemFontOfSize(45)
+        mPlayButton.titleLabel!.font = UIFont.systemFontOfSize(50)
         mPlayButton.tintColor = UIColor.blackColor()
         mPlayButton.setTitle("Play", forState: UIControlState.Normal)
         self.view.addSubview(mPlayButton)
@@ -57,10 +57,10 @@ class MainViewController: UIViewController
         
         mOptionButton.translatesAutoresizingMaskIntoConstraints = true;
         //let mOptionButton = UIButton(frame: CGRectMake(40, 330, 240, 40))
-        mOptionButton.frame = CGRectMake(400, 650, 240, 90)
+        mOptionButton.frame = CGRectMake(400, 660, 230, 70)
         mOptionButton.layer.borderColor = UIColor.blackColor().CGColor
         mOptionButton.layer.borderWidth = 2
-        mOptionButton.titleLabel!.font = UIFont.systemFontOfSize(45)
+        mOptionButton.titleLabel!.font = UIFont.systemFontOfSize(50)
         mOptionButton.tintColor = UIColor.blackColor()
         mOptionButton.setTitle("Options", forState: UIControlState.Normal)
         self.view.addSubview(mOptionButton)
@@ -68,12 +68,12 @@ class MainViewController: UIViewController
         
         mCharacterbutton.translatesAutoresizingMaskIntoConstraints = true;
         //let CharacterBtn = UIButton(frame: CGRectMake(40, 400, 240, 40))
-        mCharacterbutton.frame = CGRectMake(750, 650, 240, 90)
+        mCharacterbutton.frame = CGRectMake(750, 660, 230, 70)
         mCharacterbutton.layer.borderColor = UIColor.blackColor().CGColor
         mCharacterbutton.layer.borderWidth = 2
-        mCharacterbutton.titleLabel!.font = UIFont.systemFontOfSize(45)
+        mCharacterbutton.titleLabel!.font = UIFont.systemFontOfSize(50)
         mCharacterbutton.tintColor = UIColor.blackColor()
-        mCharacterbutton.setTitle("Character", forState: UIControlState.Normal)
+        mCharacterbutton.setTitle("Charactet", forState: UIControlState.Normal)
         self.view.addSubview(mCharacterbutton)
         
     }
