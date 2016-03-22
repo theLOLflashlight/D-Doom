@@ -60,6 +60,11 @@
                     <navigationItem key="navigationItem" title="D&amp;Doom" id="7AX-RT-ldP">
                         <barButtonItem key="backBarButtonItem" title="Home" id="TDa-AF-MVj"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mCharacterbutton" destination="MBK-Hk-tXv" id="KF7-W6-bPT"/>
+                        <outlet property="mOptionButton" destination="C9n-6e-FJK" id="T6Z-gR-Ozu"/>
+                        <outlet property="mPlayButton" destination="7PH-vc-mq6" id="riZ-wJ-hMl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
