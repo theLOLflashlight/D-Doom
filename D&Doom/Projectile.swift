@@ -13,7 +13,7 @@ import OpenGLES
 
 class Projectile : Actor {
     
-    //Values for model associated with the projectile
+    var homeInOnPlayer = false;
     
     //x and y are mouse screen coordinates, and z is the depth that this will have, for the current projection and modelview
     init() {
@@ -66,6 +66,10 @@ class Projectile : Actor {
         let velocity_f = GLKVector3DivideScalar(_velocity, 60);        _position = GLKVector3Add(_position, velocity_f);
         //print("\(_position.x), \(_position.y), \(_position.z)");
         
+        if(homeInOnPlayer) {
+            homingOn(GameViewController.position);
+        }
+        
         checkCollision();
         //printVector("Position: ", vec: _position);
     }
@@ -73,5 +77,13 @@ class Projectile : Actor {
         //check z coordinate matching any other enemies
         //then do a 2D collision detection ...
         //though that may involve using a buffer ...
+    }
+    
+    //Home in on target
+    func homingOn(target:GLKVector3) {
+        var vecDir = GLKVector3Subtract(target, self._position);
+        vecDir = GLKVector3Normalize(vecDir); //unit vector used to get direction of vector
+        var projVelocity = GLKVector3MultiplyScalar(vecDir, GLKVector3Length(_velocity))
+        _velocity = projVelocity;
     }
 }

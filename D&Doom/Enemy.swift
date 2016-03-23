@@ -26,12 +26,13 @@ class Enemy : Actor {
     override func update() {
         //Shoot every _timeBeforeShot seconds.
         if(_currTimeBeforeShot <= 0) {
-            //shoot projectile towards player
+            //shoot projectile towards player, will need to home in as well
             var vecDir = GLKVector3Subtract(GameViewController.position, self._position);
             vecDir = GLKVector3Normalize(vecDir); //unit vector used to get direction of vector
-            var projVelocity = GLKVector3MultiplyScalar(vecDir, 10)
+            let projVelocity = GLKVector3MultiplyScalar(vecDir, 10)
 
-            let projectile = Projectile(position: _position, velocity: projVelocity);
+            var mVar = modelVars();
+            let projectile = Projectile(position: _position, velocity: projVelocity, mVars:mVar); //constantly updating direction
             //pass modelVars into it
             
             if ((GameViewController.ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
