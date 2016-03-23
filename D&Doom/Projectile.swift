@@ -13,11 +13,13 @@ import OpenGLES
 
 class Projectile : Actor {
     
+    //Values for model associated with the projectile
+    
     //x and y are mouse screen coordinates, and z is the depth that this will have, for the current projection and modelview
     init() {
         super.init(position: ActorConstants._origin);
     }
-    init(screenX:CGFloat, screenY:CGFloat, farplaneZ:Int, speed:Float, modelView:GLKMatrix4, projection:GLKMatrix4, viewport:UnsafeMutablePointer<Int32>) {
+    init(screenX:CGFloat, screenY:CGFloat, farplaneZ:Int, speed:Float, modelView:GLKMatrix4, projection:GLKMatrix4, viewport:UnsafeMutablePointer<Int32>, mVars:modelVars) {
         let _vecDest = GLKMathUnproject(GLKVector3Make(Float(screenX), Float(screenY), Float(farplaneZ)), modelView, projection, viewport, nil);
         let _vecOrigin = GLKMathUnproject(Actor.ActorConstants._origin, modelView, projection, viewport, nil);
         super.init(position: ActorConstants._origin);
@@ -36,6 +38,16 @@ class Projectile : Actor {
             _velocity = GLKVector3MultiplyScalar(GLKVector3Normalize(lineVectorWorld), speed);
         }
         printVector("velocity: ", vec: _velocity);
+    }
+    init(position:GLKVector3, velocity:GLKVector3, mVars:modelVars) {
+        super.init(position: ActorConstants._origin);
+        _velocity = velocity;
+        _modelVars = mVars;
+    }
+    
+    func setModel(mVars:modelVars) {
+        //copy the struct
+        _modelVars = mVars;
     }
     
     //For debug purposes.
@@ -58,6 +70,8 @@ class Projectile : Actor {
         //printVector("Position: ", vec: _position);
     }
     func checkCollision() {
-        
+        //check z coordinate matching any other enemies
+        //then do a 2D collision detection ...
+        //though that may involve using a buffer ...
     }
 }
