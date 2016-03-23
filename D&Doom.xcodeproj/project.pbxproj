@@ -29,6 +29,7 @@
 		539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */; };
 		812DAD0E1C792A5400027642 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812DAD0D1C792A5400027642 /* Actor.swift */; };
 		812F4E341C76BD7500002245 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F4E331C76BD7500002245 /* Projectile.swift */; };
+		813EF9631CA23C3600304B3C /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EF9621CA23C3600304B3C /* Enemy.swift */; };
 		8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */ = {isa = PBXBuildFile; fileRef = 815454891C7D377C008FB22C /* 'flyby'.wav */; };
 		8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */; };
 		8154548F1C7D377C008FB22C /* footsteps_gravel.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8154548B1C7D377C008FB22C /* footsteps_gravel.wav */; };
@@ -72,6 +73,7 @@
 		539EC90A1C6BD4DF00894807 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		812DAD0D1C792A5400027642 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		812F4E331C76BD7500002245 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		813EF9621CA23C3600304B3C /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		815454891C7D377C008FB22C /* 'flyby'.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "'flyby'.wav"; sourceTree = "<group>"; };
 		8154548A1C7D377C008FB22C /* footsteps_gravel_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = footsteps_gravel_01.mp3; sourceTree = "<group>"; };
 		8154548B1C7D377C008FB22C /* footsteps_gravel.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footsteps_gravel.wav; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			children = (
 				812F4E331C76BD7500002245 /* Projectile.swift */,
 				812DAD0D1C792A5400027642 /* Actor.swift */,
+				813EF9621CA23C3600304B3C /* Enemy.swift */,
 			);
 			name = Actors;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				813EF9631CA23C3600304B3C /* Enemy.swift in Sources */,
 				44426C241C7D3F60006FAC24 /* level.c in Sources */,
 				535CBC131C90C079000B1465 /* Level.swift in Sources */,
 				812F4E341C76BD7500002245 /* Projectile.swift in Sources */,
