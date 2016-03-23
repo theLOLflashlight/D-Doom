@@ -45,6 +45,7 @@ class GameViewController: GLKViewController
 
     var program: GLuint = 0
     
+    
     //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity

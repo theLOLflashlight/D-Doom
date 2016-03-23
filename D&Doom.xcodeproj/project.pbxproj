@@ -23,6 +23,7 @@
 		539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9021C6BD4DF00894807 /* Main.storyboard */; };
 		539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9051C6BD4DF00894807 /* Assets.xcassets */; };
 		539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */; };
+		81014FCF1CA309B000A00886 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81014FCE1CA309B000A00886 /* Enemy.swift */; };
 		812DAD0E1C792A5400027642 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812DAD0D1C792A5400027642 /* Actor.swift */; };
 		812F4E341C76BD7500002245 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F4E331C76BD7500002245 /* Projectile.swift */; };
 		8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */ = {isa = PBXBuildFile; fileRef = 815454891C7D377C008FB22C /* 'flyby'.wav */; };
@@ -61,6 +62,7 @@
 		539EC9051C6BD4DF00894807 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		539EC9081C6BD4DF00894807 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		539EC90A1C6BD4DF00894807 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81014FCE1CA309B000A00886 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Enemy.swift; path = "../../../D-Doom3/D&Doom/Enemy.swift"; sourceTree = "<group>"; };
 		812DAD0D1C792A5400027642 /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		812F4E331C76BD7500002245 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		815454891C7D377C008FB22C /* 'flyby'.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "'flyby'.wav"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		812DAD091C79292E00027642 /* Actors */ = {
 			isa = PBXGroup;
 			children = (
+				81014FCE1CA309B000A00886 /* Enemy.swift */,
 				812F4E331C76BD7500002245 /* Projectile.swift */,
 				812DAD0D1C792A5400027642 /* Actor.swift */,
 			);
@@ -292,6 +295,7 @@
 				44426C241C7D3F60006FAC24 /* level.c in Sources */,
 				812F4E341C76BD7500002245 /* Projectile.swift in Sources */,
 				539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */,
+				81014FCF1CA309B000A00886 /* Enemy.swift in Sources */,
 				53957FB71C7E7E16005F0E73 /* Rail.swift in Sources */,
 				53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */,
 				539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */,
