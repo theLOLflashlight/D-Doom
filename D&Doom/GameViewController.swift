@@ -45,6 +45,7 @@ class GameViewController: GLKViewController
 
     var program: GLuint = 0
     
+    var mLevel : Level?
     
     //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
@@ -247,6 +248,7 @@ class GameViewController: GLKViewController
         self.view.addSubview(currProjectileCoord)
         
         self.setupGL()
+        mLevel = Level( name: "crate" )
     }
     /*func replaySound() {
         AudioServicesPlaySystemSound(mySound);
@@ -649,6 +651,8 @@ class GameViewController: GLKViewController
         } )
         
         glDrawArrays( GLenum( GL_TRIANGLES ), 0, levelVertices )
+        
+        mLevel?.render( modelViewProjectionMatrix )
     }
     
     // MARK: -  OpenGL ES 2 shader compilation

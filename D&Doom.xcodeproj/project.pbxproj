@@ -11,12 +11,17 @@
 		030285201C7E533B006051BD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0302851F1C7E533B006051BD /* OpenGLES.framework */; };
 		030285221C7E534F006051BD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030285211C7E534F006051BD /* GLKit.framework */; };
 		44426C241C7D3F60006FAC24 /* level.c in Sources */ = {isa = PBXBuildFile; fileRef = 44426C221C7D3F60006FAC24 /* level.c */; };
+		44C660581CA20ABE007A7C49 /* DOOMDOOM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44C660571CA20ABE007A7C49 /* DOOMDOOM.mp3 */; };
 		44D138391C7D4EAD00B332AA /* projectile.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D138371C7D4EAD00B332AA /* projectile.c */; };
 		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
 		530B4E9B1C75598100E21344 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E991C75598100E21344 /* Shader.vsh */; };
+		535CBC131C90C079000B1465 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535CBC121C90C079000B1465 /* Level.swift */; };
+		535CBC161C90C281000B1465 /* GLShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 535CBC151C90C281000B1465 /* GLShader.m */; };
+		5361C5C21C9284CA00F70274 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5361C5BF1C92792B00F70274 /* MyViewController.swift */; };
 		53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */; };
 		53701E461C7D50D80078E09B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53701E451C7D50D80078E09B /* AVFoundation.framework */; };
 		53957FB71C7E7E16005F0E73 /* Rail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53957FB61C7E7E16005F0E73 /* Rail.swift */; };
+		539939451C9271A500BD8EF5 /* crate.obj in Resources */ = {isa = PBXBuildFile; fileRef = 539939441C9271A500BD8EF5 /* crate.obj */; };
 		539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */; };
 		539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC8FE1C6BD4DF00894807 /* MainViewController.swift */; };
 		539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539EC9001C6BD4DF00894807 /* GameViewController.swift */; };
@@ -46,13 +51,19 @@
 		44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "D&Doom-Bridging-Header.h"; sourceTree = "<group>"; };
 		44426C221C7D3F60006FAC24 /* level.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level.c; sourceTree = "<group>"; };
 		44426C231C7D3F60006FAC24 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
+		44C660571CA20ABE007A7C49 /* DOOMDOOM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DOOMDOOM.mp3; sourceTree = "<group>"; };
 		44D138371C7D4EAD00B332AA /* projectile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = projectile.c; sourceTree = "<group>"; };
 		44D138381C7D4EAD00B332AA /* projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projectile.h; sourceTree = "<group>"; };
 		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		530B4E991C75598100E21344 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		535CBC121C90C079000B1465 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		535CBC141C90C281000B1465 /* GLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLShader.h; sourceTree = "<group>"; };
+		535CBC151C90C281000B1465 /* GLShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLShader.m; sourceTree = "<group>"; };
+		5361C5BF1C92792B00F70274 /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		53701E451C7D50D80078E09B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		53957FB61C7E7E16005F0E73 /* Rail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rail.swift; sourceTree = "<group>"; };
+		539939441C9271A500BD8EF5 /* crate.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = crate.obj; sourceTree = "<group>"; };
 		539EC8F91C6BD4DF00894807 /* D&Doom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "D&Doom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		539EC8FE1C6BD4DF00894807 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +115,7 @@
 			children = (
 				030285251C7E5F9D006051BD /* level0 */,
 				44426C221C7D3F60006FAC24 /* level.c */,
+				539939441C9271A500BD8EF5 /* crate.obj */,
 				44426C231C7D3F60006FAC24 /* level.h */,
 			);
 			name = Levels;
@@ -150,12 +162,16 @@
 				539EC8FC1C6BD4DF00894807 /* AppDelegate.swift */,
 				539EC8FE1C6BD4DF00894807 /* MainViewController.swift */,
 				539EC9001C6BD4DF00894807 /* GameViewController.swift */,
+				5361C5BF1C92792B00F70274 /* MyViewController.swift */,
+				535CBC141C90C281000B1465 /* GLShader.h */,
+				535CBC151C90C281000B1465 /* GLShader.m */,
 				539EC9021C6BD4DF00894807 /* Main.storyboard */,
 				539EC9051C6BD4DF00894807 /* Assets.xcassets */,
 				539EC9071C6BD4DF00894807 /* LaunchScreen.storyboard */,
 				539EC90A1C6BD4DF00894807 /* Info.plist */,
 				53701E431C7D3DA90078E09B /* SettingsTableViewController.swift */,
 				53957FB61C7E7E16005F0E73 /* Rail.swift */,
+				535CBC121C90C079000B1465 /* Level.swift */,
 			);
 			path = "D&Doom";
 			sourceTree = "<group>";
@@ -163,6 +179,7 @@
 		8101F0671C7CFE7600F284BF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				44C660571CA20ABE007A7C49 /* DOOMDOOM.mp3 */,
 				8154549B1C7D5608008FB22C /* magic-quake2.mp3 */,
 				815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */,
 				815454911C7D4673008FB22C /* sword-clash1.mp3 */,
@@ -266,9 +283,11 @@
 				530B4E9A1C75598100E21344 /* Shader.fsh in Resources */,
 				8154549A1C7D4CFB008FB22C /* swipe_whiff.mp3 in Resources */,
 				8154548D1C7D377C008FB22C /* 'flyby'.wav in Resources */,
+				539939451C9271A500BD8EF5 /* crate.obj in Resources */,
 				8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
+				44C660581CA20ABE007A7C49 /* DOOMDOOM.mp3 in Resources */,
 				9B05985D1C82F4E00058F594 /* GunB.png in Resources */,
 				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,
@@ -290,13 +309,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				44426C241C7D3F60006FAC24 /* level.c in Sources */,
+				535CBC131C90C079000B1465 /* Level.swift in Sources */,
 				812F4E341C76BD7500002245 /* Projectile.swift in Sources */,
+				535CBC161C90C281000B1465 /* GLShader.m in Sources */,
 				539EC9011C6BD4DF00894807 /* GameViewController.swift in Sources */,
 				53957FB71C7E7E16005F0E73 /* Rail.swift in Sources */,
 				53701E441C7D3DA90078E09B /* SettingsTableViewController.swift in Sources */,
 				539EC8FD1C6BD4DF00894807 /* AppDelegate.swift in Sources */,
 				44D138391C7D4EAD00B332AA /* projectile.c in Sources */,
 				539EC8FF1C6BD4DF00894807 /* MainViewController.swift in Sources */,
+				5361C5C21C9284CA00F70274 /* MyViewController.swift in Sources */,
 				812DAD0E1C792A5400027642 /* Actor.swift in Sources */,
 				0302851E1C7E4C11006051BD /* level0.c in Sources */,
 			);
