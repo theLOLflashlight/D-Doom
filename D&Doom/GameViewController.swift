@@ -45,6 +45,7 @@ class GameViewController: GLKViewController
 
     var program: GLuint = 0
     
+    var mLevel : Level?
     
     //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
@@ -52,7 +53,7 @@ class GameViewController: GLKViewController
     
     var modelViewMatrix: GLKMatrix4 = GLKMatrix4Identity
     
-    var position: GLKVector3 = GLKVector3Make(0, 0.5, 5)
+    static var position: GLKVector3 = GLKVector3Make(0, 0.5, 5)
     var direction: GLKVector3 = GLKVector3Make(0,0,0)
     var up: GLKVector3 = GLKVector3Make(0, 1, 0)
     
@@ -73,6 +74,9 @@ class GameViewController: GLKViewController
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
     
+    //Timer stuff (especially for enemy AI)
+    //var _timer : NSTimer
+    
 //    @IBAction func cameraRotation(sender: UIPanGestureRecognizer) {
 //        
 //        let point: CGPoint = sender.translationInView(self.view)
@@ -92,9 +96,9 @@ class GameViewController: GLKViewController
     }
     
     @IBAction func MoveCamera(sender: UIButton) {
-        
-        position = GLKVector3Subtract(position, direction)
+        GameViewController.position = GLKVector3Subtract(GameViewController.position, direction)
     }
+
     
     deinit
     {
@@ -119,8 +123,9 @@ class GameViewController: GLKViewController
     var _currProjectile = Projectile(); //a null projectile
     
     // Hashtable storing all Lists of Actor types in the game, organized by type.
-    var ActorLists : [Array<Actor>] = [];
-    var ProjectileList : [Projectile] = [];
+    // Made static in order to be accessible by separate classes.
+    static var ActorLists : [Array<Actor>] = [];
+    static var ProjectileList : [Projectile] = [];
     
     //For swipe action.
     var _maxRadius : CGFloat = 0;
@@ -215,7 +220,7 @@ class GameViewController: GLKViewController
         {
             print("Failed to create ES context")
         }
-        ActorLists = [ProjectileList]; //Can assign an array of a subclass to an array of its superclass, apparently
+        GameViewController.ActorLists = [GameViewController.ProjectileList]; //Can assign an array of a subclass to an array of its superclass, apparently
         
         let view = self.view as! GLKView
         view.context = self.context!
@@ -247,6 +252,7 @@ class GameViewController: GLKViewController
         self.view.addSubview(currProjectileCoord)
         
         self.setupGL()
+        mLevel = Level( name: "crate" )
     }
     /*func replaySound() {
         AudioServicesPlaySystemSound(mySound);
@@ -567,10 +573,10 @@ class GameViewController: GLKViewController
         
         
         //This were used to orient the matrix.
-        modelViewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z,
-            GLKVector3Subtract(position, direction).x,
-            GLKVector3Subtract(position, direction).y,
-            GLKVector3Subtract(position, direction).z,
+        modelViewMatrix = GLKMatrix4MakeLookAt(GameViewController.position.x, GameViewController.position.y, GameViewController.position.z,
+            GLKVector3Subtract(GameViewController.position, direction).x,
+            GLKVector3Subtract(GameViewController.position, direction).y,
+            GLKVector3Subtract(GameViewController.position, direction).z,
             up.x, up.y, up.z);
         
         //self.effect?. = UIColor.brownColor().colorWithAlphaComponent(CGFloat(1 - animationProgress)); //set background color
@@ -590,19 +596,23 @@ class GameViewController: GLKViewController
             let StartProjectile = Projectile.ActorConstants._origin;
             let screenSize : CGRect = UIScreen.mainScreen().bounds;
             let viewport = UnsafeMutablePointer<Int32>([Int32(0), Int32(screenSize.height - 100), Int32(screenSize.width), Int32(screenSize.height)]);
-            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport);
+            
+            //TODO: Set modelVars for projectileModel
+            let projectileModel = Actor.modelVars();
+            
+            let projectile = Projectile(screenX: mouseX, screenY: mouseY, farplaneZ: Int(100), speed: 5, modelView: modelViewMatrix, projection: projectionMatrix, viewport: viewport, mVars: projectileModel);
         
             //Casting ActorLists[0] as [Projectile], getting the reference of that
-            if ((ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
-                ActorLists[0].removeAll();
-                ActorLists[0].append(projectile); //adds to its own constructor
+            if ((GameViewController.ActorLists[0] as? [Projectile]) != nil) { //creates a copy of the array, due to swift - http://stackoverflow.com/questions/27812433/swift-how-do-i-make-a-exact-duplicate-copy-of-an-array
+                GameViewController.ActorLists[0].removeAll();
+                GameViewController.ActorLists[0].append(projectile); //adds to its own constructor
             }
             toCreateProjectile = false;
             //projectile.printVector("a", vec: projectile._velocity);
             _currProjectile = projectile;
         }
-        //ActorLists[0].append(projectile);
-        //ProjectileList.append(projectile);
+        //GameViewController.ActorLists[0].append(projectile);
+        //GameViewController.ProjectileList.append(projectile);
         
         currProjectileCoord.text = "Projectile Pos'n: (\(_currProjectile._position.x),\(_currProjectile._position.y),\(_currProjectile._position.z))";
         
@@ -611,14 +621,7 @@ class GameViewController: GLKViewController
         _imageView.image = image
         
         //Update all Actors in ActorLists
-        for ActorList in ActorLists {
-            for actor in ActorList as! [Actor] { //force downcast/unwrap with "as!"
-                actor.update(); //actor...
-            }
-        }
-        
-        //Update all Actors in ActorLists
-        for ActorList in ActorLists {
+        for ActorList in GameViewController.ActorLists {
             for actor in ActorList as! [Actor] { //force downcast/unwrap with "as!"
                 actor.update(); //actor...
             }
