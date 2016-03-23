@@ -13,29 +13,7 @@ import UIKit
 class SettingsTableViewController : UITableViewController
 {
     var settingMusicOn = false
-    //public var themePlayer : AVAudioPlayer!;
-    
-    /*
-    @IBAction func settingMusicChanged(sender: AnyObject, forEvent event: UIEvent)
-    {
-        settingMusicOn = (sender as? UISwitch)?.on == true
-        /*
-        //music code
-        if let path = NSBundle.mainBundle().pathForResource("Assets.xcassets/music0.dataset/1348", ofType: "mp3") {
-            let soundURL = NSURL(fileURLWithPath:path)
-            
-            var error:NSError?
-            do {
-                themePlayer = try AVAudioPlayer(contentsOfURL: soundURL);
-                themePlayer.prepareToPlay()
-                themePlayer.numberOfLoops = -1;
-                themePlayer.play()
-            }
-            catch {
-            }
-        }
-*/
-    }*/
+  
     
     override func viewDidLoad()
     {
@@ -55,10 +33,7 @@ class SettingsTableViewController : UITableViewController
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    /*
-    @IBAction func toggleMusic(sender: UISwitch) {
-        NSLog("%d",5);
-    }*/
+
     @IBOutlet weak var togMusic: UISwitch!
     
     @IBAction func toggleMusic(sender: UISwitch) {
