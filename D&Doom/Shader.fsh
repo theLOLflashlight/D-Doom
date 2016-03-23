@@ -22,7 +22,9 @@ uniform vec4 AmbientComponent;
 
 void main()
 {
+    /*
     vec4 ambient = AmbientComponent;
+    
     
     vec3 N = normalize( EyeNormal );
     float nDotVP = max( 0.0, dot( N, normalize( DiffuseLightPosition ) ) );
@@ -40,9 +42,20 @@ void main()
         specular = vec4( 0.0, 0.0, 0.0, 1.0 );
     }
     
-    /* add ambient and specular components here as in:
-     gl_FragColor = (ambient + diffuse + specular) * texture2D(texture, texCoordOut);
-     */
+    // add ambient and specular components here as in:
+    //gl_FragColor = (ambient + diffuse + specular) * texture2D(texture, texCoordOut);
+     
     gl_FragColor = (ambient + diffuse + specular) * texture2D( Texture, TexCoordOut );
     gl_FragColor.a = 1.0;
+    */
+    
+        vec3 eyeNormal = normalize(normalMatrix * normal);
+        vec3 lightPosition = vec3(0.0, 0.0, 1.0);
+        vec4 diffuseColor = vec4(0.4, 0.4, 1.0, 1.0);
+    
+        float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
+    
+        colorVarying = diffuseColor * nDotVP;
+    
+        gl_Position = modelViewProjectionMatrix * position;
 }

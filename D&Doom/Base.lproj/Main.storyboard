@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -27,7 +29,6 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
-                                    <action selector="Play:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6J4-pA-9Lc"/>
                                     <segue destination="8rJ-Kc-sve" kind="presentation" id="jsX-mW-EOc"/>
                                 </connections>
                             </button>
