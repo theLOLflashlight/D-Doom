@@ -526,8 +526,7 @@ class GameViewController: GLKViewController
         
         glGenBuffers( 1, &vertexBuffer )
         glBindBuffer( GLenum( GL_ARRAY_BUFFER ), vertexBuffer )
-        //glBufferData( GLenum( GL_ARRAY_BUFFER ), GLsizeiptr( sizeof( GLfloat ) * gCubeVertexData.count ), &gCubeVertexData, GLenum( GL_STATIC_DRAW ) )
-        
+      
         glEnableVertexAttribArray( GLuint( GLKVertexAttrib.Position.rawValue ) )
         glVertexAttribPointer( GLuint( GLKVertexAttrib.Position.rawValue ), 3, GLenum( GL_FLOAT ), GLboolean( GL_FALSE ), 0, levelPositions)
         glEnableVertexAttribArray( GLuint( GLKVertexAttrib.Normal.rawValue ) )
@@ -819,50 +818,4 @@ class GameViewController: GLKViewController
         return status != 0
     }
 }
-
-var gCubeVertexData: [GLfloat] = [
-    // Data layout for each line below is:
-    // positionX, positionY, positionZ,     normalX, normalY, normalZ,
-    0.5, -0.5, -0.5,        1.0, 0.0, 0.0,
-    0.5, 0.5, -0.5,         1.0, 0.0, 0.0,
-    0.5, -0.5, 0.5,         1.0, 0.0, 0.0,
-    0.5, -0.5, 0.5,         1.0, 0.0, 0.0,
-    0.5, 0.5, -0.5,         1.0, 0.0, 0.0,
-    0.5, 0.5, 0.5,          1.0, 0.0, 0.0,
-    
-    0.5, 0.5, -0.5,         0.0, 1.0, 0.0,
-    -0.5, 0.5, -0.5,        0.0, 1.0, 0.0,
-    0.5, 0.5, 0.5,          0.0, 1.0, 0.0,
-    0.5, 0.5, 0.5,          0.0, 1.0, 0.0,
-    -0.5, 0.5, -0.5,        0.0, 1.0, 0.0,
-    -0.5, 0.5, 0.5,         0.0, 1.0, 0.0,
-    
-    -0.5, 0.5, -0.5,        -1.0, 0.0, 0.0,
-    -0.5, -0.5, -0.5,      -1.0, 0.0, 0.0,
-    -0.5, 0.5, 0.5,         -1.0, 0.0, 0.0,
-    -0.5, 0.5, 0.5,         -1.0, 0.0, 0.0,
-    -0.5, -0.5, -0.5,      -1.0, 0.0, 0.0,
-    -0.5, -0.5, 0.5,        -1.0, 0.0, 0.0,
-    
-    -0.5, -0.5, -0.5,      0.0, -1.0, 0.0,
-    0.5, -0.5, -0.5,        0.0, -1.0, 0.0,
-    -0.5, -0.5, 0.5,        0.0, -1.0, 0.0,
-    -0.5, -0.5, 0.5,        0.0, -1.0, 0.0,
-    0.5, -0.5, -0.5,        0.0, -1.0, 0.0,
-    0.5, -0.5, 0.5,         0.0, -1.0, 0.0,
-    
-    0.5, 0.5, 0.5,          0.0, 0.0, 1.0,
-    -0.5, 0.5, 0.5,         0.0, 0.0, 1.0,
-    0.5, -0.5, 0.5,         0.0, 0.0, 1.0,
-    0.5, -0.5, 0.5,         0.0, 0.0, 1.0,
-    -0.5, 0.5, 0.5,         0.0, 0.0, 1.0,
-    -0.5, -0.5, 0.5,        0.0, 0.0, 1.0,
-    
-    0.5, -0.5, -0.5,        0.0, 0.0, -1.0,
-    -0.5, -0.5, -0.5,      0.0, 0.0, -1.0,
-    0.5, 0.5, -0.5,         0.0, 0.0, -1.0,
-    0.5, 0.5, -0.5,         0.0, 0.0, -1.0,
-    -0.5, -0.5, -0.5,      0.0, 0.0, -1.0,
-    -0.5, 0.5, -0.5,        0.0, 0.0, -1.0
-]
 
