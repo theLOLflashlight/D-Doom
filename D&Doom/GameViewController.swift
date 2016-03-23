@@ -142,7 +142,7 @@ class GameViewController: GLKViewController
     var sound : NSURL = NSBundle.mainBundle().URLForResource("footsteps_gravel", withExtension: "wav")!;
     //var audioPlayer = AVAudioPlayer()
     var mySound: SystemSoundID = 0;
-    public var themePlayer : AVAudioPlayer!;
+    var themePlayer : AVAudioPlayer!;
     var soundPlayer : AVAudioPlayer!;
     var soundPlayer2 : AVAudioPlayer!;
     
