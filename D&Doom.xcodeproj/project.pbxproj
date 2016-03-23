@@ -11,6 +11,7 @@
 		030285201C7E533B006051BD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0302851F1C7E533B006051BD /* OpenGLES.framework */; };
 		030285221C7E534F006051BD /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030285211C7E534F006051BD /* GLKit.framework */; };
 		44426C241C7D3F60006FAC24 /* level.c in Sources */ = {isa = PBXBuildFile; fileRef = 44426C221C7D3F60006FAC24 /* level.c */; };
+		44C660581CA20ABE007A7C49 /* DOOMDOOM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 44C660571CA20ABE007A7C49 /* DOOMDOOM.mp3 */; };
 		44D138391C7D4EAD00B332AA /* projectile.c in Sources */ = {isa = PBXBuildFile; fileRef = 44D138371C7D4EAD00B332AA /* projectile.c */; };
 		530B4E9A1C75598100E21344 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E981C75598100E21344 /* Shader.fsh */; };
 		530B4E9B1C75598100E21344 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 530B4E991C75598100E21344 /* Shader.vsh */; };
@@ -50,6 +51,7 @@
 		44426C211C7D3F60006FAC24 /* D&Doom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "D&Doom-Bridging-Header.h"; sourceTree = "<group>"; };
 		44426C221C7D3F60006FAC24 /* level.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level.c; sourceTree = "<group>"; };
 		44426C231C7D3F60006FAC24 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
+		44C660571CA20ABE007A7C49 /* DOOMDOOM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DOOMDOOM.mp3; sourceTree = "<group>"; };
 		44D138371C7D4EAD00B332AA /* projectile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = projectile.c; sourceTree = "<group>"; };
 		44D138381C7D4EAD00B332AA /* projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projectile.h; sourceTree = "<group>"; };
 		530B4E981C75598100E21344 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		8101F0671C7CFE7600F284BF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				44C660571CA20ABE007A7C49 /* DOOMDOOM.mp3 */,
 				8154549B1C7D5608008FB22C /* magic-quake2.mp3 */,
 				815454991C7D4CFB008FB22C /* swipe_whiff.mp3 */,
 				815454911C7D4673008FB22C /* sword-clash1.mp3 */,
@@ -284,6 +287,7 @@
 				8154548E1C7D377C008FB22C /* footsteps_gravel_01.mp3 in Resources */,
 				539EC9091C6BD4DF00894807 /* LaunchScreen.storyboard in Resources */,
 				539EC9061C6BD4DF00894807 /* Assets.xcassets in Resources */,
+				44C660581CA20ABE007A7C49 /* DOOMDOOM.mp3 in Resources */,
 				9B05985D1C82F4E00058F594 /* GunB.png in Resources */,
 				8154549C1C7D5608008FB22C /* magic-quake2.mp3 in Resources */,
 				539EC9041C6BD4DF00894807 /* Main.storyboard in Resources */,

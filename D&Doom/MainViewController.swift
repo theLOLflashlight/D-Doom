@@ -7,6 +7,13 @@
 //
 
 import UIKit
+import AVFoundation
+
+struct MPlay {
+    
+    static var playVariable = true;
+}
+
 
 class MainViewController: UIViewController
 {
@@ -24,6 +31,19 @@ class MainViewController: UIViewController
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
         return UIInterfaceOrientationMask.AllButUpsideDown
+    }
+    
+    var themePlayer : AVAudioPlayer!;
+    
+    override func viewWillDisappear(animated: Bool) {
+            themePlayer.pause();
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if(MPlay.playVariable)
+        {
+            themePlayer.play();
+        }
     }
     
     override func viewDidLoad()
@@ -76,6 +96,30 @@ class MainViewController: UIViewController
         mCharacterbutton.setTitle("Charactet", forState: UIControlState.Normal)
         self.view.addSubview(mCharacterbutton)
         
+        ThemeSound();
+        
+        
+    }
+    
+    
+    
+    func ThemeSound() {
+        
+        if let path = NSBundle.mainBundle().pathForResource("DOOMDOOM", ofType: "mp3") {
+            let soundURL = NSURL(fileURLWithPath:path)
+            
+            var error:NSError?
+            do {
+                themePlayer = try AVAudioPlayer(contentsOfURL: soundURL);
+                themePlayer.prepareToPlay()
+                themePlayer.numberOfLoops = -1;
+                themePlayer.play()
+            }
+            catch {
+            }
+        }
+        
+        
     }
 
     override func didReceiveMemoryWarning()
@@ -86,7 +130,6 @@ class MainViewController: UIViewController
     
     func update()
     {
-        
     }
     
     override func viewDidAppear( animated: Bool )

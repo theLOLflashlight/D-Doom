@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZYe-hk-d8X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZYe-hk-d8X">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -29,6 +29,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
+                                    <action selector="Play:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6J4-pA-9Lc"/>
                                     <segue destination="8rJ-Kc-sve" kind="presentation" id="jsX-mW-EOc"/>
                                 </connections>
                             </button>
@@ -91,7 +92,7 @@
                                         <rect key="frame" x="0.0" y="148" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="07F-xb-QUj" id="A9D-ss-uts">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYN-Mo-e3C">
@@ -100,10 +101,10 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bFR-ef-Ffx">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFR-ef-Ffx">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="settingMusicChanged:forEvent:" destination="fiu-ch-Jcw" eventType="valueChanged" id="cB3-CD-XSh"/>
+                                                        <action selector="toggleMusic:" destination="fiu-ch-Jcw" eventType="valueChanged" id="QbR-yC-BI0"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -124,6 +125,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="NCC-dY-Xyk"/>
+                    <connections>
+                        <outlet property="togMusic" destination="bFR-ef-Ffx" id="NzC-6N-RCC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enQ-H9-2eH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -181,8 +185,11 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pB-xP-jV7" userLabel="HUD">
-                                <rect key="frame" x="0.0" y="489" width="600" height="111"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GunB.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cm4-Mq-pod">
+                                <rect key="frame" x="546" y="490" width="474" height="215"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pB-xP-jV7" userLabel="HUD">
+                                <rect key="frame" x="0.0" y="504" width="600" height="96"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AMMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQh-fy-8DE">
                                         <rect key="frame" x="8" y="82" width="115" height="21"/>
