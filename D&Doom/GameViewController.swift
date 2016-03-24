@@ -22,16 +22,28 @@ let UNIFORM_MODELVIEWPROJECTION_MATRIX = 0
 let UNIFORM_NORMAL_MATRIX = 1
 var uniforms = [GLint]( count: 2, repeatedValue: 0 )
 
-
 class GameViewController: GLKViewController
 {
     @IBOutlet var mHud: UIView!
-    
     @IBOutlet var mAmmoLabel: UILabel!
-    
     @IBOutlet var mHealthLabel: UILabel!
-    
     @IBOutlet var mWeaponLabel: UILabel!
+    
+    
+    //For the purposes of this project, statics are a very efficient way
+    //with little risk of unexpected modifications.
+    static var mAmmo = 107;
+    static var mHealth = 100;
+    static var mWeapon = "N/A";
+    
+    //Decided against a PlayerData object as well as the construct of a "RenderContext" or passing each variable to the respective classes.
+    //Player data
+    /*var Ammo : UILabel! {
+        get { return GameViewController.mAmmo; }
+        set { GameViewController.mAmmo = newValue;
+            mAmmoLabel = newValue;}
+    };*/
+    //var PlayerData = PlayerData();
     
     override func shouldAutorotate() -> Bool
     {
@@ -45,13 +57,13 @@ class GameViewController: GLKViewController
 
     var program: GLuint = 0
     
-    
     //Camera stuff
     var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
     var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
     
     var modelViewMatrix: GLKMatrix4 = GLKMatrix4Identity
     
+    //Accessible static var - position
     static var position: GLKVector3 = GLKVector3Make(0, 0.5, 5)
     var direction: GLKVector3 = GLKVector3Make(0,0,0)
     var up: GLKVector3 = GLKVector3Make(0, 1, 0)
@@ -259,7 +271,7 @@ class GameViewController: GLKViewController
             
             //Set control points c0, c1, c2, and c3 for the path myBezierPath()
             var c0, c1, c2, c3 : CGPoint;
-            let bezierInterval = 30; //have to make sure this is divisible by 3.
+            let bezierInterval = 3; //have to make sure this is divisible by 3.
             //myBezier.moveToPoint(CGPoint(x: 0,y: 0));
             if(!(_translationPoints.count < 1)) {
                 //initialization
@@ -372,7 +384,7 @@ class GameViewController: GLKViewController
         view.context = self.context!
         view.drawableDepthFormat = .Format24
         
-        mAmmoLabel.text = "107"
+        //mAmmoLabel.text = GameViewController.mAmmo;
         mHealthLabel.text = "77%"
         
         mWeaponLabel.text = "N/A"
@@ -764,6 +776,11 @@ class GameViewController: GLKViewController
         //GameViewController.ProjectileList.append(projectile);
         
         currProjectileCoord.text = "Projectile Pos'n: (\(_currProjectile._position.x),\(_currProjectile._position.y),\(_currProjectile._position.z))";
+        
+        //update HUD values. Other than reassignment each frame, would have to maybe pass by reference, but that doesn't look possible.
+        mAmmoLabel.text = String(GameViewController.mAmmo);
+        mHealthLabel.text = String(GameViewController.mHealth) + "%";
+        mWeaponLabel.text = GameViewController.mWeapon;
         
         //update line
         let image = drawSwipeLine(imageSize)

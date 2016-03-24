@@ -15,9 +15,11 @@ class Enemy : Actor {
     //AI: Shoot every 3 seconds.
     var _currTimeBeforeShot = ActorConstants._timeBeforeShot;
     var _shotVelocity = 10; //In world coordinates per second
-    init() {
+    var _health = 50;
+    
+    init(health: Int) {
         super.init(position: ActorConstants._origin);
-        
+        _health = health;
         //timer ticks once every FPS frames (curr. 60 as of this writing)
         //_timer = NSTimer.scheduledTimerWithTimeInterval(1.0/Double(ActorConstants.FPS), target: self, selector: "update", userInfo: nil, repeats: true);
         //Don't need timer; will just use update()

@@ -37,6 +37,7 @@ class Actor {
     var _position = GLKVector3Make(0, 0, 0);
     var _velocity = GLKVector3Make(0, 0, 0);
     var _acceleration = GLKVector3Make(0, 0, 0); // in number of seconds
+    var _radius = 10; //used for 'bounding spheres' collision detection; using an arbitrary default value
     
     init(position: GLKVector3) {
         _position = position;

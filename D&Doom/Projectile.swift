@@ -14,6 +14,7 @@ import OpenGLES
 class Projectile : Actor {
     
     var homeInOnPlayer = false;
+    var damage = 20; //to be set manually
     
     //x and y are mouse screen coordinates, and z is the depth that this will have, for the current projection and modelview
     init() {
@@ -77,7 +78,72 @@ class Projectile : Actor {
         //check z coordinate matching any other enemies
         //then do a 2D collision detection ...
         //though that may involve using a buffer ...
+        var collided = false;
+        
+        var other : Actor;
+        //Or, just can do the very efficient and simple bounding spheres collision.
+        //Not sure how to handle model data for other forms of collision at the moment.
+        for var ActorList in GameViewController.ActorLists { //if var not specified, "let" is default
+            for (var i=0; i<ActorList.count; i++) {
+                let actor = ActorList[i]; //force downcast/unwrap with "as!"
+                if(GLKVector3Length(GLKVector3Subtract(_position, actor._position)) <= Float(actor._radius + _radius)) {
+                    collided = true;
+                    other = actor;
+                    //handle collision code here, in order to preserve the index of (and thus ability to remove) ActorList elements
+                    
+                    //destroy enemy, damage player, depending on what kind of projectile it is. Could use homeInOnPlayer if and only if the projectiles are enemy projectiles targeting the player, perhaps. Given that:
+                    if(homeInOnPlayer) {
+                        //damage player
+                        GameViewController.mHealth -= damage;
+                    }
+                    else {
+                        //Checking enemy - kill enemy if it's one
+                        //Could make it damage the enemy instead
+                        if let enemy = ActorList[i] as? Enemy {
+                            enemy._health -= damage;
+
+                            if(enemy._health <= 0) {
+                                //Remove enemy as the kill process.
+                                ActorList.removeAtIndex(i);
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
     }
+    
+    //Credit goes to http://stackoverflow.com/questions/15247347/collision-detection-between-a-boundingbox-and-a-sphere-in-libgdx
+    //Sphere and bounding box (AABB?) collision
+    /*
+    public static boolean sphereBBCollides(BoxmVars : modelVars) {
+        float dmin = 0;
+    
+        Vector3 center = sphere.center;
+        Vector3 bmin = boundingBox.getMin();
+        Vector3 bmax = boundingBox.getMax();
+    
+        if (center.x < bmin.x) {
+            dmin += Math.pow(center.x - bmin.x, 2);
+        } else if (center.x > bmax.x) {
+            dmin += Math.pow(center.x - bmax.x, 2);
+        }
+    
+        if (center.y < bmin.y) {
+            dmin += Math.pow(center.y - bmin.y, 2);
+        } else if (center.y > bmax.y) {
+            dmin += Math.pow(center.y - bmax.y, 2);
+        }
+    
+        if (center.z < bmin.z) {
+            dmin += Math.pow(center.z - bmin.z, 2);
+        } else if (center.z > bmax.z) {
+            dmin += Math.pow(center.z - bmax.z, 2);
+        }
+    
+        return dmin <= Math.pow(sphere.radius, 2);
+    }*/
     
     //Home in on target
     func homingOn(target:GLKVector3) {
