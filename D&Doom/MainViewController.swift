@@ -23,7 +23,7 @@ class MainViewController: UIViewController
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
-        return UIInterfaceOrientationMask.AllButUpsideDown
+        return UIInterfaceOrientationMask.Landscape//UIInterfaceOrientationMask.AllButUpsideDown
     }
     
     override func viewDidLoad()
