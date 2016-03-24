@@ -73,6 +73,14 @@ class GameViewController: GLKViewController
     var context: EAGLContext? = nil
     var effect: GLKBaseEffect? = nil
     
+    var _myBezier = UIBezierPath();
+    
+    let bezierDuration = Float(1); //duration of bezier on screen (in seconds)
+    
+    //to track swipe running or not
+    var _currBezierDuration = -0.00001; //hard-coded time below 0
+    var _currSwipeDrawn = false;
+    
     //Timer stuff (especially for enemy AI)
     //var _timer : NSTimer
     
@@ -153,8 +161,79 @@ class GameViewController: GLKViewController
     //
     var AVAudioPlayers : [AVAudioPlayer] = [];
     
+    //For other iOS stuff.
+    typealias NSPoint = CGPoint;
+    typealias NSUInteger = UInt;
+    
+    var _lastDate = [NSDate?](count: 64, repeatedValue: nil);
+    
+    //For drawing Bezier:
+    //From http://stackoverflow.com/questions/10458596/bezier-curve-algorithm-in-objective-c
+    /* //not used
+    func drawBezierFrom(from:NSPoint, to:NSPoint, a:NSPoint, b:NSPoint, color:NSUInteger)
+    {
+        var qx : Float; var qy : Float;
+        var q1 : Float;
+        var q2 : Float;
+        var q3 : Float;
+        var q4 : Float;
+        var plotx : Float;
+        var ploty : Float;
+        var t : Float = 0.0;
+    
+    while (t <= 1)
+    {
+        //Split because 'statement was too complex to be solved in a reasonable time' comes up, where it doesn't look nearly like that
+        q1 = Float(t*t*t*(-1) + t*t*3
+             + t*(-3) + 1);
+        q2 = Float(t*t*t*3 + t*t*(-6)
+             + t*3);
+        q3 = Float(t*t*t*(-3)
+             + t*t*3);
+        q4 = Float(t*t*t);
+    
+        qx = Float(q1*from.x
+            + q2*a.x
+            + q3*to.x
+            + q4*b.x);
+        qy = Float(q1*from.y
+            + q2*a.y
+            + q3*to.y
+            + q4*b.y);
+    
+        plotx = round(qx);
+        ploty = round(qy);
+    
+        self.drawPixelColor(color:color, atX:plotx, y:ploty);
+    
+        t = t + 0.003;
+    }
+    }*/
+    
+    //Time since the last iteration of calling this method. Original intention is for running the code, and tracking time independently of frame rate.
+    //Each place in code calling this is to use a different Int for 'closest-to-accurate' results (though it would not include the time after retrieving the time and updating the time, so the value would be less, or not include the time spent in retrieving the NSDate before retrieving timeDiff, ie. timeDiff would not include such time).
+    func timeSinceLastIter(timePointIndex: Int) -> Double {
+        let newTime = NSDate();
+        var timeDiff : Double = 0; //this would be the first time; there would be no time before this one occurred.
+        if(timePointIndex < _lastDate.count) {
+            if(_lastDate[timePointIndex] != nil) { //if an NSDate exists, then do the following
+                timeDiff = newTime.timeIntervalSinceDate(_lastDate[timePointIndex]!) //provided misleading error info - where I declared timeDiff resolved an error of 'not matching array type' apparently
+            }
+        }
+        
+        //if let timeDiff = newTime.timeIntervalSinceDate(_lastDate[timePointIndex]);
+        
+        
+        //append array elements such that this array would be long enough to store the element at timePointIndex
+        if(!(timePointIndex < _lastDate.count)) {
+            _lastDate = _lastDate + [NSDate?](count: timePointIndex - (_lastDate.count - 1), repeatedValue: nil);
+        }
+        _lastDate[timePointIndex] = newTime;
+        return timeDiff;
+    }
+    
     //For drawing lines - from http://stackoverflow.com/questions/25229916/how-to-procedurally-draw-rectangle-lines-in-swift-using-cgcontext
-    func drawCustomImage(size: CGSize) -> UIImage {
+    func drawSwipeLine(size: CGSize) -> UIImage {
         // Setup our context
         let bounds = CGRect(origin: CGPoint.zero, size: size)
         let opaque = false
@@ -164,22 +243,90 @@ class GameViewController: GLKViewController
         
         // Setup complete, do drawing here
         CGContextSetStrokeColorWithColor(context, UIColor.blueColor().CGColor)
-        CGContextSetLineWidth(context, 2.0)
+        CGContextSetLineWidth(context, 4.0)
         
         CGContextStrokeRect(context, bounds)
         
         CGContextBeginPath(context)
+        
+        
+        let timesinceLast = timeSinceLastIter(0);
         if(!_noSwipe) { //condition to erase line if swipe ended
-        //draw each line, as evident from _translationPoints
-            for(var i=1; i < _translationPoints.count; i++) {
-                CGContextMoveToPoint(context, _translationPoints[i-1].x, _translationPoints[i-1].y);
-                CGContextAddLineToPoint(context, _translationPoints[i].x, _translationPoints[i].y);
+            //Draw bezier
+            //Maybe a cubic bezier curve?
+            _myBezier = UIBezierPath()
+            let myMicroBezier = UIBezierPath();
+            
+            //Set control points c0 and c1 for the path myBezierPath()
+            var c0, c1, c2, c3 : CGPoint;
+            let bezierInterval = 3; //have to make sure this is divisible by 3.
+            //myBezier.moveToPoint(CGPoint(x: 0,y: 0));
+            if(!(_translationPoints.count < 1)) {
+                //initialization
+                //c0 = _translationPoints[0]; //adding this because xcode is stupid
+                c1 = _translationPoints[0];
+                c2 = _translationPoints[0];
+                c3 = _translationPoints[0]; //set origin point
+                //var currCurvePos = 1;
+                
+                //draw each line, as evident from _translationPoints
+                for(var i=1; i < _translationPoints.count; i++) {
+                    //CGContextMoveToPoint(context, _translationPoints[i-1].x, _translationPoints[i-1].y);
+                
+                    //build bezier curve
+                    if(i%(bezierInterval/3) == 0) { //every point, add a new control point to bezier curve
+                        //shift all of the control points by one
+                        c0 = c1;
+                        c1 = c2;
+                        c2 = c3;
+                        c3 = _translationPoints[i];
+                        
+                        //draw the c0,c1,c2,c3 bezier curve every 3 additional control points.
+                        if(i%(bezierInterval) == 0) { //becomes 0 ... making sometimes a straight line ... maybe the 'last line' being different in how Bezier might handle it? Oh, it's because of the closePath, and that apparently applying to addCurveToPoint ...
+                            _myBezier.moveToPoint(c0);
+                            _myBezier.addCurveToPoint(c3, controlPoint1: c1, controlPoint2: c2);
+                        }
+                    }
+                    
+                    //get values greater than those truncated from dividing by bezierInterval, ie. values greater than the highest value quantized by bezierInterval, and draw normally according to that
+                    let highestQuantizedVal = (_translationPoints.count / bezierInterval) * bezierInterval;
+                    if(i > highestQuantizedVal) {
+                        myMicroBezier.moveToPoint(_translationPoints[i-1]);
+                        myMicroBezier.addLineToPoint(_translationPoints[i]);
+                    }
+                    //CGContextAddLineToPoint(context, _translationPoints[i].x, _translationPoints[i].y);
+                }
+                
+                //draw bezier curve from those control points
+                _myBezier.lineWidth = 5;
+                //Maybe error occurs when trying to access c0 when c0 would no longer exist, ie. be out of scope?
+                //myBezier.addClip();
+                //myBezier.closePath() //may be the cause
+                UIColor.redColor().setStroke();
+                
+                //myMicroBezier.lineWidth = 5;
+                //UIColor.greenColor().setStroke();
+                //myMicroBezier.stroke();
+            }
+        }
+        //Fading swipe effect
+        if(_currBezierDuration >= 0 && _currSwipeDrawn) {
+            _currBezierDuration -= timesinceLast; //reserving 0 for this
+            
+            //fade only halfway through the swipe
+            let alpha = min(1, Float(_currBezierDuration)/Float(bezierDuration * 0.66));
+            UIColor(red: 1,green: 0, blue: 0, alpha:CGFloat(alpha)).setStroke();
+            _myBezier.stroke();
+            
+            if(_currBezierDuration <= 0) {
+                _translationPoints.removeAll();
+                _currSwipeDrawn = false;
             }
         }
         //draw min to max - so, diagonally
 //        CGContextMoveToPoint(context, CGRectGetMaxX(bounds), CGRectGetMinY(bounds))
 //        CGContextAddLineToPoint(context, CGRectGetMinX(bounds), CGRectGetMaxY(bounds))
-        CGContextStrokePath(context)
+        //CGContextStrokePath(context)
         
         // Drawing complete, retrieve the finished image and cleanup
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -332,8 +479,6 @@ class GameViewController: GLKViewController
         let radiusVec = GLKVector2Make(Float(translation.x), Float(translation.y));
         let radLength = CGFloat(GLKVector2Length(radiusVec))
         
-        
-        
         if(recognizer.state == UIGestureRecognizerState.Began) {
             _maxRadius = 0;
             //_maxTranslationY = 0;
@@ -342,7 +487,6 @@ class GameViewController: GLKViewController
         }
         if(recognizer.state == UIGestureRecognizerState.Ended) {
             _noSwipe = false;
-            _translationPoints.removeAll();
             if(radLength >= 80) { //valid swipe
                 var swipeSound : String;
                 var swipeSoundExt : String = "mp3";
@@ -364,8 +508,11 @@ class GameViewController: GLKViewController
                     catch {
                     }
                 }
+                _currBezierDuration = Double(bezierDuration);
+                _currSwipeDrawn = true;
             }
         }
+        
         
         if(radLength > _maxRadius) {
             _maxRadius = radLength;
@@ -374,7 +521,7 @@ class GameViewController: GLKViewController
         //cancel gesture if moving backwards from the furthest radius from the origin (as opposed to total translation) by 6px.
         //So yes, you can zigzag a lot if you wanted to.
         if(radLength < _maxRadius - 6) {
-            _noSwipe = true;
+            //_noSwipe = true;
         }
         
         //draw line
@@ -472,7 +619,7 @@ class GameViewController: GLKViewController
         imageSize = CGSize(width: screenSize.width, height: screenSize.height);
         _imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize))
         self.view.addSubview(_imageView)
-        let image = drawCustomImage(imageSize)
+        let image = drawSwipeLine(imageSize)
         //_imageView.
         _imageView.image = image
     }
@@ -561,7 +708,11 @@ class GameViewController: GLKViewController
         let aspect = fabsf( Float( self.view.bounds.size.width / self.view.bounds.size.height ) )
         let projectionMatrix = GLKMatrix4MakePerspective( GLKMathDegreesToRadians( 65.0 ), aspect, 0.1, 100.0 )
         
-        
+        //get inverse of seconds per update call
+        //(roughly)
+        //let timeSinceLastDate = NSDate().timeIntervalSinceDate(_currDate); // aka 'seconds / update'
+        let UPS = 1 / timeSinceLastIter(1);
+
         
         self.effect?.transform.projectionMatrix = projectionMatrix
         
@@ -588,7 +739,7 @@ class GameViewController: GLKViewController
         
         
         
-        //Still have to rotate the projectile velocity and vectors to make them facing direction of the camera; currently the projectile's projectile as if the camera were from 0,0,0 to facing towards the center of the screen.
+        //Still have to rotate the projectile velocity and vectors to make them facing direction of the camera; currently the projectile's projectile as if the camera were from 0,0,0 to facing towards the center of the screen, unless Unproject takes the view (which would involve the camera angle) into account.
         //Test model, view, and projection for projectile
         if(toCreateProjectile) {
             let StartProjectile = Projectile.ActorConstants._origin;
@@ -615,7 +766,7 @@ class GameViewController: GLKViewController
         currProjectileCoord.text = "Projectile Pos'n: (\(_currProjectile._position.x),\(_currProjectile._position.y),\(_currProjectile._position.z))";
         
         //update line
-        let image = drawCustomImage(imageSize)
+        let image = drawSwipeLine(imageSize)
         _imageView.image = image
         
         //Update all Actors in ActorLists
