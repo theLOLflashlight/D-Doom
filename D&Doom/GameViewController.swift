@@ -257,9 +257,9 @@ class GameViewController: GLKViewController
             _myBezier = UIBezierPath()
             let myMicroBezier = UIBezierPath();
             
-            //Set control points c0 and c1 for the path myBezierPath()
+            //Set control points c0, c1, c2, and c3 for the path myBezierPath()
             var c0, c1, c2, c3 : CGPoint;
-            let bezierInterval = 3; //have to make sure this is divisible by 3.
+            let bezierInterval = 30; //have to make sure this is divisible by 3.
             //myBezier.moveToPoint(CGPoint(x: 0,y: 0));
             if(!(_translationPoints.count < 1)) {
                 //initialization
